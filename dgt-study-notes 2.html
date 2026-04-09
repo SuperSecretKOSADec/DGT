@@ -1,0 +1,1995 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DGT · Apuntes de estudio · T1-T2</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg:#F7F4EF; --surf:#FFF; --surf2:#F0EDE7; --surf3:#E8E4DC;
+  --tx:#1C1916; --tx2:#5A554F; --tx3:#9A948D;
+  --ac:#1B4D8E; --ac2:#E8EFF8;
+  --am:#B5700E; --am2:#FEF3E0;
+  --te:#1A7A5E; --te2:#E4F4EE;
+  --re:#B03030; --re2:#FCEAEA;
+  --bd:#E0DBD3; --bd2:#C8C2B8;
+  --r:10px; --rl:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);font-size:15px;line-height:1.65;min-height:100vh}
+
+/* ── TOP NAV ── */
+.topnav{background:var(--ac);position:sticky;top:0;z-index:300;box-shadow:0 2px 12px rgba(0,0,0,.18)}
+.topnav-inner{max-width:1100px;margin:0 auto;padding:.6rem 1.2rem;display:flex;align-items:center;gap:1rem;justify-content:space-between}
+.brand{font-family:'Literata',serif;font-size:1.1rem;font-weight:700;color:#fff;letter-spacing:-.02em;white-space:nowrap}
+.brand span{font-size:.65rem;opacity:.55;font-family:'DM Sans',sans-serif;font-weight:400;display:block;letter-spacing:.07em;text-transform:uppercase;margin-top:1px}
+.tema-tabs{display:flex;gap:.3rem;flex-wrap:wrap}
+.ttab{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:20px;padding:.28rem .85rem;font-size:.75rem;font-weight:500;cursor:pointer;transition:all .15s;white-space:nowrap}
+.ttab:hover{background:rgba(255,255,255,.22)}
+.ttab.active{background:#fff;color:var(--ac)}
+.ttab.locked{opacity:.38;cursor:default;pointer-events:none}
+.dict-btn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:20px;padding:.28rem .85rem;font-size:.75rem;font-weight:500;cursor:pointer;white-space:nowrap;transition:all .15s}
+.dict-btn:hover{background:rgba(255,255,255,.25)}
+.dict-btn.has-words{background:#E8C547;color:#12121A;border-color:#E8C547}
+
+/* ── PAGE ── */
+.page{max-width:1000px;margin:0 auto;padding:1.5rem 1.2rem 5rem}
+
+/* ── TEMA PANEL ── */
+.tema-panel{display:none}
+.tema-panel.active{display:block}
+
+/* ── SUB TABS ── */
+.sub-tabs{display:flex;gap:0;border-bottom:2px solid var(--bd);margin-bottom:1.5rem}
+.stab{padding:.55rem 1.2rem;font-size:.88rem;font-weight:500;color:var(--tx3);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .15s}
+.stab:hover{color:var(--tx2)}
+.stab.active{color:var(--ac);border-bottom-color:var(--ac)}
+
+/* ── STUDY CONTENT ── */
+.study-panel{display:none}
+.study-panel.active{display:block}
+.quiz-panel{display:none}
+.quiz-panel.active{display:block}
+
+.section{margin-bottom:1.75rem}
+.sec-title{font-family:'Literata',serif;font-size:1.05rem;font-weight:600;color:var(--tx);margin-bottom:.75rem;padding-bottom:.4rem;border-bottom:1px solid var(--bd2);display:flex;align-items:center;gap:.5rem}
+.sec-title .en{font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:400;color:var(--tx3);font-style:italic}
+
+.intro-box{background:var(--surf);border:1px solid var(--bd);border-left:4px solid var(--ac);border-radius:var(--rl);padding:1rem 1.2rem;margin-bottom:1.5rem;font-size:.88rem;line-height:1.7;color:var(--tx2)}
+.intro-box strong{color:var(--tx)}
+
+/* callouts */
+.co{border-radius:var(--r);padding:.75rem 1rem;margin-bottom:.6rem;font-size:.86rem;line-height:1.6;border-left:4px solid}
+.co-bl{background:var(--ac2);border-color:var(--ac);color:#143B6E}
+.co-am{background:var(--am2);border-color:var(--am);color:#7A4B08}
+.co-te{background:var(--te2);border-color:var(--te);color:#125A45}
+.co-re{background:var(--re2);border-color:var(--re);color:#8A2020}
+.co-gy{background:var(--surf2);border-color:var(--bd2);color:var(--tx2)}
+.co .en{font-style:italic;font-size:.76rem;display:block;margin-top:3px;opacity:.8}
+
+/* exam trap */
+.trap{background:#FFF8E1;border:1px solid #E6C84A;border-left:4px solid #C9A020;border-radius:var(--r);padding:.75rem 1rem;margin-bottom:.65rem;font-size:.84rem}
+.trap-lbl{font-size:.63rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#9A7010;margin-bottom:.25rem}
+.trap p{color:#5A4008;line-height:1.55}
+.trap .en{color:#7A5A10;font-style:italic;font-size:.76rem;display:block;margin-top:3px}
+
+/* badges */
+.badge{display:inline-block;font-size:.68rem;font-weight:600;padding:2px 6px;border-radius:4px;margin:2px;white-space:nowrap}
+.b-bl{background:var(--ac2);color:var(--ac)}
+.b-am{background:var(--am2);color:var(--am)}
+.b-te{background:var(--te2);color:var(--te)}
+.b-re{background:var(--re2);color:var(--re)}
+.b-gy{background:var(--surf3);color:var(--tx2)}
+.b-gn{background:#EAF5E4;color:#2A6B15}
+
+/* highlights */
+.hl{background:#FEF3C7;color:#92400E;border-radius:3px;padding:1px 5px;font-weight:600;font-size:.9em}
+.hl-bl{background:var(--ac2);color:var(--ac);border-radius:3px;padding:1px 5px;font-weight:600;font-size:.9em}
+.hl-re{background:var(--re2);color:var(--re);border-radius:3px;padding:1px 5px;font-weight:600;font-size:.9em}
+.hl-te{background:var(--te2);color:var(--te);border-radius:3px;padding:1px 5px;font-weight:600;font-size:.9em}
+
+/* cards */
+.card{background:var(--surf);border:1px solid var(--bd);border-radius:var(--r);padding:1rem 1.2rem;margin-bottom:.6rem}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.7rem}
+
+/* tables */
+.tbl{width:100%;border-collapse:collapse;font-size:.82rem;background:var(--surf);border-radius:var(--r);overflow:hidden;border:1px solid var(--bd)}
+.tbl th{background:var(--surf2);font-weight:600;text-align:left;padding:.5rem .85rem;color:var(--tx2);font-size:.73rem;border-bottom:1px solid var(--bd2)}
+.tbl td{padding:.5rem .85rem;border-bottom:1px solid var(--bd);vertical-align:top}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:nth-child(even) td{background:#FAFAF8}
+.tbl-note{font-size:.72rem;color:var(--tx3);font-style:italic;display:block;margin-top:2px}
+
+/* vehicle tree */
+.vtree{background:var(--surf);border:1px solid var(--bd);border-radius:var(--rl);overflow:hidden;margin-bottom:.75rem}
+.vrow{display:grid;grid-template-columns:155px 1fr}
+.vrow+.vrow{border-top:1px solid var(--bd)}
+.vcat{padding:.85rem 1rem;background:var(--surf2);border-right:1px solid var(--bd);display:flex;flex-direction:column;justify-content:center;gap:3px}
+.vcat-n{font-weight:600;font-size:.8rem}
+.vcat-e{font-size:.69rem;color:var(--tx3);font-style:italic}
+.vitems{padding:.8rem 1rem;display:flex;flex-wrap:wrap;gap:.28rem;align-content:center}
+
+/* people defs */
+.def-grid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem}
+.def-card{background:var(--surf);border:1px solid var(--bd);border-radius:var(--r);padding:1rem}
+.def-name{font-family:'Literata',serif;font-size:1.05rem;font-weight:700;color:var(--ac)}
+.def-name-en{font-size:.7rem;color:var(--tx3);font-style:italic;margin-bottom:.4rem;display:block}
+.def-es{font-size:.83rem;line-height:1.6;margin-bottom:.35rem}
+.def-en{font-size:.76rem;color:var(--tx2);font-style:italic;line-height:1.5}
+.def-trap{background:#FFF8E1;border-radius:5px;padding:.28rem .6rem;font-size:.72rem;color:#7A5010;margin-top:.45rem}
+
+/* licence cards */
+.lic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:.6rem;margin-bottom:.85rem}
+.lic-card{background:var(--surf);border:1px solid var(--bd);border-radius:var(--r);padding:.9rem 1rem}
+.lic-name{font-size:1.1rem;font-weight:700;font-family:'Literata',serif}
+.lic-age{font-size:.7rem;background:var(--surf2);border-radius:3px;padding:2px 6px;font-weight:600;margin-left:5px;color:var(--tx2)}
+.lic-body{font-size:.81rem;line-height:1.65;margin:.4rem 0}
+.lic-body li{margin-left:1.1rem;margin-bottom:2px}
+.lic-note{font-size:.73rem;background:var(--am2);border-radius:4px;padding:.28rem .6rem;color:#7A4B08;margin-top:.35rem}
+.lic-trap{font-size:.73rem;background:#FFF8E1;border-radius:4px;padding:.28rem .6rem;color:#7A5010;margin-top:.28rem;border:1px solid #E6D080}
+
+/* penalty blocks */
+.pen-block{border-radius:var(--r);overflow:hidden;margin-bottom:.85rem;border:1px solid var(--bd)}
+.pen-head{display:flex;align-items:center;gap:.7rem;padding:.6rem 1rem;font-weight:600;font-size:.84rem}
+.ph6{background:var(--re2);color:#8A2020;border-bottom:1px solid #F0C0C0}
+.ph4{background:var(--am2);color:#7A4B08;border-bottom:1px solid #E8D090}
+.ph3{background:#FFFDE8;color:#6A5808;border-bottom:1px solid #E8E080}
+.pdot{width:28px;height:28px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.95rem;flex-shrink:0;color:#fff}
+.pd6{background:var(--re)}.pd4{background:var(--am)}.pd3{background:#9A8A18}
+.pen-item{padding:.52rem 1rem;border-bottom:1px solid var(--bd);font-size:.82rem;line-height:1.5;display:flex;align-items:flex-start;gap:.55rem}
+.pen-item:last-child{border-bottom:none}
+.pen-item .en{font-size:.73rem;color:var(--tx3);font-style:italic;display:block;margin-top:2px}
+.pi-bul{color:var(--tx3);margin-top:2px;flex-shrink:0}
+
+/* speed table */
+.spd-wrap{overflow-x:auto;margin-bottom:.6rem}
+.spd-tbl{border-collapse:collapse;font-size:.73rem;min-width:680px;width:100%;background:var(--surf);border:1px solid var(--bd)}
+.spd-tbl th{background:var(--ac);color:#fff;padding:.38rem .38rem;text-align:center;font-weight:600;font-size:.67rem;border:1px solid rgba(255,255,255,.2)}
+.spd-tbl td{padding:.32rem .38rem;text-align:center;border:1px solid var(--bd);font-size:.7rem}
+.sg{background:#FEFCF0}.smg{background:var(--re2)}
+.s-pts{font-weight:700;color:var(--re);font-size:.82rem}
+.s-fine{font-weight:600;color:var(--ac)}
+.s-cat{background:var(--surf2);font-size:.7rem;font-weight:600;color:var(--tx2);text-align:center}
+
+/* ITV table */
+.itv-tbl{width:100%;border-collapse:collapse;font-size:.8rem;border:1px solid var(--bd);border-radius:var(--r);overflow:hidden;background:var(--surf)}
+.itv-tbl th{background:var(--ac);color:#fff;padding:.45rem .7rem;text-align:center;font-size:.72rem;font-weight:600}
+.itv-tbl th:first-child{text-align:left}
+.itv-tbl td{padding:.55rem .7rem;border:1px solid var(--bd);vertical-align:middle}
+.itv-tbl tr:nth-child(even) td{background:#FAFAF8}
+.itv-y{background:var(--te2);color:var(--te);border-radius:4px;padding:2px 7px;font-size:.72rem;font-weight:600;text-align:center;display:block}
+.itv-n{color:var(--tx3);text-align:center;font-size:.78rem}
+
+/* deadlines */
+.dl-row{display:flex;align-items:flex-start;gap:.75rem;padding:.55rem 0;border-bottom:1px solid var(--bd)}
+.dl-row:last-child{border-bottom:none}
+.dl-num{background:var(--am);color:#fff;border-radius:5px;padding:.14rem .5rem;font-size:.76rem;font-weight:700;white-space:nowrap;flex-shrink:0;margin-top:2px}
+.dl-text{font-size:.83rem;line-height:1.55}
+.dl-en{font-size:.73rem;color:var(--tx3);font-style:italic;display:block}
+
+/* points visual */
+.pts-scale{height:26px;display:flex;border-radius:5px;overflow:hidden;border:1px solid var(--bd)}
+.pts-seg{display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700;color:#fff}
+
+/* vocab grid */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:.45rem}
+.vocab-item{background:var(--surf);border:1px solid var(--bd);border-radius:var(--r);padding:.58rem .82rem;cursor:pointer;transition:all .15s}
+.vocab-item:hover{border-color:var(--ac);background:var(--ac2)}
+.vocab-es{font-weight:600;font-size:.86rem;color:var(--ac)}
+.vocab-en{font-size:.74rem;color:var(--tx2);margin-top:2px}
+.vocab-note{font-size:.7rem;color:var(--tx3);margin-top:2px;font-style:italic}
+
+/* ── QUIZ PANEL ── */
+.quiz-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;flex-wrap:wrap;gap:.75rem}
+.quiz-header h2{font-family:'Literata',serif;font-size:1.2rem;font-weight:600}
+.cat-pills{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1rem}
+.cat-pill{background:var(--surf);border:1px solid var(--bd);border-radius:20px;padding:.25rem .7rem;font-size:.72rem;cursor:pointer;transition:all .15s;color:var(--tx2)}
+.cat-pill.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.btn-new{background:var(--ac);color:#fff;border:none;border-radius:var(--r);padding:.65rem 1.3rem;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit;display:flex;align-items:center;gap:.5rem}
+.btn-new:hover{background:#163f75}
+.btn-new:disabled{background:var(--surf2);color:var(--tx3);cursor:wait}
+.q-card{background:var(--surf);border:1px solid var(--bd);border-radius:var(--rl);padding:1.3rem;margin-bottom:1rem;animation:fadeup .25s ease}
+@keyframes fadeup{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.q-cat-badge{display:inline-block;font-size:.63rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ac);border:1px solid var(--ac2);border-radius:20px;padding:.15rem .6rem;margin-bottom:.75rem;font-weight:500}
+.q-text{font-size:1rem;font-weight:600;line-height:1.5;margin-bottom:.3rem}
+.q-text-en{font-size:.82rem;color:var(--tx3);font-style:italic;margin-bottom:1rem;line-height:1.45}
+.options{display:flex;flex-direction:column;gap:.42rem;margin-bottom:.85rem}
+.opt-btn{background:var(--surf2);border:1px solid var(--bd);border-radius:var(--r);padding:.6rem .9rem;cursor:pointer;text-align:left;font-family:inherit;font-size:.88rem;transition:all .18s;display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;line-height:1.45}
+.opt-btn:hover:not(:disabled){background:var(--ac2);border-color:var(--ac)}
+.opt-btn .opt-en{font-size:.74rem;color:var(--tx3);font-style:italic;display:block;margin-top:2px}
+.opt-btn.correct{background:#E4F4EE;border-color:var(--te);color:var(--te)}
+.opt-btn.wrong{background:var(--re2);border-color:var(--re);color:var(--re)}
+.opt-btn.reveal-correct{background:#E4F4EE;border-color:var(--te)}
+.opt-btn:disabled{cursor:default}
+.en-toggle{background:none;border:1px solid var(--bd);border-radius:var(--r);padding:.25rem .65rem;font-size:.72rem;color:var(--tx3);cursor:pointer;font-family:inherit;margin-bottom:.75rem;transition:all .15s}
+.en-toggle:hover{background:var(--surf2)}
+.explanation{border-radius:var(--r);padding:.75rem 1rem;font-size:.85rem;line-height:1.6;margin-top:.3rem}
+.exp-correct{background:var(--te2);border:1px solid #A0D8C8;color:#0A4A36}
+.exp-wrong{background:var(--re2);border:1px solid #F0B0B0;color:#7A1A1A}
+.exp-en{font-size:.76rem;font-style:italic;display:block;margin-top:.35rem;opacity:.8}
+.q-score{font-size:.78rem;color:var(--tx3);font-weight:500}
+
+/* ── DICTIONARY / FLASHCARD ── */
+.dict-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem}
+.dict-overlay.open{display:flex}
+.dict-modal{background:var(--surf);border-radius:var(--rl);max-width:560px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,.4);display:flex;flex-direction:column}
+.dict-modal-header{padding:1rem 1.3rem;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--surf);z-index:1}
+.dict-modal-header h3{font-family:'Literata',serif;font-size:1rem;font-weight:600}
+.dict-close{background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--tx3);padding:.2rem}
+.dict-body{padding:1.2rem 1.3rem}
+.dict-tabs{display:flex;gap:.3rem;margin-bottom:1.1rem}
+.dtab{background:var(--surf2);border:none;border-radius:var(--r);padding:.38rem .85rem;font-size:.8rem;font-weight:500;cursor:pointer;transition:all .15s;font-family:inherit;color:var(--tx2)}
+.dtab.on{background:var(--ac);color:#fff}
+
+/* word lookup */
+.word-input-row{display:flex;gap:.5rem;margin-bottom:.8rem}
+.word-input{flex:1;border:1px solid var(--bd);border-radius:var(--r);padding:.55rem .85rem;font-size:.9rem;font-family:inherit;background:var(--surf2);color:var(--tx);outline:none}
+.word-input:focus{border-color:var(--ac);background:var(--surf)}
+.btn-lookup{background:var(--ac);color:#fff;border:none;border-radius:var(--r);padding:.55rem 1rem;font-size:.85rem;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap}
+.btn-lookup:disabled{background:var(--surf2);color:var(--tx3);cursor:wait}
+.word-result{background:var(--surf2);border-radius:var(--rl);padding:1.1rem 1.2rem;margin-bottom:.8rem;display:none}
+.word-result.visible{display:block}
+.wr-word{font-size:1.6rem;font-weight:700;font-family:'Literata',serif;color:var(--ac);letter-spacing:-.02em}
+.wr-type{font-size:.7rem;font-family:monospace;text-transform:uppercase;letter-spacing:.1em;color:var(--tx3);margin-top:.15rem;margin-bottom:.8rem}
+.wr-block{border-left:3px solid var(--ac);padding-left:.85rem;margin-bottom:.7rem}
+.wr-block.es{border-color:var(--am)}
+.wr-lang{font-size:.68rem;font-family:monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--tx3);margin-bottom:.15rem}
+.wr-def{font-size:.9rem;line-height:1.5}
+.wr-example{background:var(--ac2);border-radius:var(--r);padding:.65rem .85rem;margin-bottom:.7rem}
+.wr-ex-es{font-size:.88rem;color:#143B6E;line-height:1.45}
+.wr-ex-en{font-size:.78rem;color:var(--tx3);font-style:italic;margin-top:.25rem}
+.wr-tip{background:#FFF8E1;border-radius:var(--r);padding:.45rem .75rem;font-size:.78rem;color:#7A5010;margin-bottom:.8rem}
+.btn-save-word{width:100%;padding:.65rem;border-radius:var(--r);border:none;font-weight:600;font-size:.87rem;cursor:pointer;font-family:inherit;transition:all .18s}
+.btn-save-word.unsaved{background:var(--ac);color:#fff}
+.btn-save-word.saved{background:var(--surf2);color:var(--tx3);cursor:default}
+
+/* flashcard deck */
+.fc-empty{text-align:center;color:var(--tx3);padding:2.5rem 1rem;font-style:italic;font-size:.9rem}
+.fc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.55rem}
+.fc-card{background:var(--surf2);border:1px solid var(--bd);border-radius:var(--r);padding:.8rem;cursor:pointer;transition:all .18s;min-height:80px;position:relative}
+.fc-card.flipped{background:#0C2015;border-color:var(--te)}
+.fc-card:hover{border-color:var(--ac)}
+.fc-word{font-weight:700;font-size:1rem;font-family:'Literata',serif;color:var(--ac)}
+.fc-type{font-size:.65rem;font-family:monospace;text-transform:uppercase;color:var(--tx3);margin-top:1px}
+.fc-hint{font-size:.7rem;color:var(--tx3);margin-top:.4rem;font-style:italic}
+.fc-translation{font-size:.95rem;font-weight:600;color:var(--te);font-family:'Literata',serif}
+.fc-def{font-size:.78rem;color:#888;margin-top:.3rem;line-height:1.4}
+.fc-ex{font-size:.72rem;color:#555;margin-top:.28rem;font-style:italic}
+.fc-del{position:absolute;top:.4rem;right:.45rem;background:none;border:none;font-size:.75rem;cursor:pointer;color:var(--tx3);opacity:.5}
+.fc-del:hover{opacity:1;color:var(--re)}
+.fc-search{width:100%;border:1px solid var(--bd);border-radius:var(--r);padding:.5rem .85rem;font-size:.87rem;font-family:inherit;background:var(--surf2);color:var(--tx);outline:none;margin-bottom:.85rem}
+.fc-search:focus{border-color:var(--ac);background:var(--surf)}
+
+/* loading spinner */
+.spin{display:inline-block;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* coming soon */
+.coming-soon{border:2px dashed var(--bd2);border-radius:var(--rl);padding:3rem;text-align:center;color:var(--tx3);font-style:italic}
+.coming-soon strong{display:block;font-size:1rem;color:var(--tx2);margin-bottom:.4rem;font-style:normal}
+
+@media(max-width:620px){
+  .g2,.g3,.def-grid{grid-template-columns:1fr}
+  .vrow{grid-template-columns:1fr}
+  .vcat{border-right:none;border-bottom:1px solid var(--bd)}
+  .topnav-inner{flex-wrap:wrap}
+}
+
+/* ── ADDITIONAL T2 STYLES ── */
+.topbar{background:var(--ac);color:white;padding:.65rem 1.2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,.2)}
+.topbar-brand{font-family:'Literata',serif;font-size:1rem;font-weight:700;letter-spacing:-.02em}
+.topbar-sub{font-size:.62rem;opacity:.55;letter-spacing:.07em;text-transform:uppercase;margin-top:1px}
+.tnav{display:flex;gap:.3rem;flex-wrap:wrap}
+.tpill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:white;border-radius:20px;padding:.22rem .7rem;font-size:.7rem;font-weight:500;cursor:pointer;text-decoration:none;transition:all .15s}
+.tpill:hover,.tpill.active{background:white;color:var(--ac)}
+/* T2-specific */
+
+:root {
+  --bg:#F7F4EF; --surf:#FFF; --surf2:#F0EDE7; --surf3:#E8E4DC;
+  --tx:#1C1916; --tx2:#5A554F; --tx3:#9A948D;
+  --ac:#1B4D8E; --ac2:#E8EFF8;
+  --am:#B5700E; --am2:#FEF3E0;
+  --te:#1A7A5E; --te2:#E4F4EE;
+  --re:#B03030; --re2:#FCEAEA;
+  --bd:#E0DBD3; --bd2:#C8C2B8;
+  --r:10px; --rl:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);font-size:15px;line-height:1.65}
+
+.topbar{background:var(--ac);color:white;padding:.65rem 1.2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,.2)}
+.topbar-brand{font-family:'Literata',serif;font-size:1rem;font-weight:700;letter-spacing:-.02em}
+.topbar-sub{font-size:.62rem;opacity:.55;letter-spacing:.07em;text-transform:uppercase;margin-top:1px}
+.nav-pills{display:flex;gap:.3rem;flex-wrap:wrap}
+.npill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:white;border-radius:20px;padding:.22rem .7rem;font-size:.7rem;font-weight:500;cursor:pointer;text-decoration:none;transition:all .15s}
+.npill:hover,.npill.active{background:white;color:var(--ac)}
+
+.page{max-width:1000px;margin:0 auto;padding:1.5rem 1.2rem 5rem}
+
+/* TEMA HEADER */
+.tema-hdr{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.75rem;padding-bottom:.85rem;border-bottom:3px solid var(--ac)}
+.tema-num{background:var(--ac);color:white;font-size:.68rem;font-weight:600;letter-spacing:.08em;padding:.28rem .65rem;border-radius:5px;margin-top:4px;white-space:nowrap}
+.tema-title{font-family:'Literata',serif;font-size:1.55rem;font-weight:700;letter-spacing:-.02em;line-height:1.2}
+.tema-en{font-size:.83rem;color:var(--tx3);font-style:italic;margin-top:3px}
+
+.intro-box{background:var(--surf);border:1px solid var(--bd);border-left:4px solid var(--ac);border-radius:var(--rl);padding:1rem 1.2rem;margin-bottom:1.5rem;font-size:.87rem;line-height:1.7;color:var(--tx2)}
+.intro-box strong{color:var(--tx)}
+
+/* SECTIONS */
+.section{margin-bottom:1.75rem}
+.sec-title{font-family:'Literata',serif;font-size:1.05rem;font-weight:600;color:var(--tx);margin-bottom:.7rem;padding-bottom:.38rem;border-bottom:1px solid var(--bd2);display:flex;align-items:center;gap:.5rem}
+.sec-en{font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:400;color:var(--tx3);font-style:italic}
+
+/* CALLOUTS */
+.co{border-radius:var(--r);padding:.75rem 1rem;margin-bottom:.55rem;font-size:.85rem;line-height:1.6;border-left:4px solid}
+.co-bl{background:var(--ac2);border-color:var(--ac);color:#143B6E}
+.co-am{background:var(--am2);border-color:var(--am);color:#7A4B08}
+.co-te{background:var(--te2);border-color:var(--te);color:#125A45}
+.co-re{background:var(--re2);border-color:var(--re);color:#8A2020}
+.co-gy{background:var(--surf2);border-color:var(--bd2);color:var(--tx2)}
+.co .en{font-style:italic;font-size:.76rem;display:block;margin-top:3px;opacity:.8}
+
+/* EXAM TRAPS */
+.trap{background:#FFF8E1;border:1px solid #E6C84A;border-left:4px solid #C9A020;border-radius:var(--r);padding:.72rem 1rem;margin-bottom:.6rem;font-size:.83rem}
+.trap-lbl{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#9A7010;margin-bottom:.22rem}
+.trap p{color:#5A4008;line-height:1.55}
+.trap .en{color:#7A5A10;font-style:italic;font-size:.75rem;display:block;margin-top:2px}
+
+/* BADGES */
+.badge{display:inline-block;font-size:.68rem;font-weight:600;padding:2px 6px;border-radius:4px;margin:2px;white-space:nowrap}
+.b-bl{background:var(--ac2);color:var(--ac)}
+.b-am{background:var(--am2);color:var(--am)}
+.b-te{background:var(--te2);color:var(--te)}
+.b-re{background:var(--re2);color:var(--re)}
+.b-gy{background:var(--surf3);color:var(--tx2)}
+.b-gn{background:#EAF5E4;color:#2A6B15}
+.b-yw{background:#FFF9C4;color:#7A6808}
+
+/* HIGHLIGHTS */
+.hl{background:#FEF3C7;color:#92400E;border-radius:3px;padding:1px 5px;font-weight:600;font-size:.9em}
+.hl-bl{background:var(--ac2);color:var(--ac);border-radius:3px;padding:1px 5px;font-weight:600;font-size:.9em}
+.hl-re{background:var(--re2);color:var(--re);border-radius:3px;padding:1px 5px;font-weight:600;font-size:.9em}
+.hl-te{background:var(--te2);color:var(--te);border-radius:3px;padding:1px 5px;font-weight:600;font-size:.9em}
+.hl-gn{background:#EAF5E4;color:#2A6B15;border-radius:3px;padding:1px 5px;font-weight:600;font-size:.9em}
+
+/* CARDS */
+.card{background:var(--surf);border:1px solid var(--bd);border-radius:var(--r);padding:.95rem 1.15rem;margin-bottom:.6rem}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.65rem}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:.6rem}
+
+/* TABLES */
+.tbl{width:100%;border-collapse:collapse;font-size:.82rem;background:var(--surf);border-radius:var(--r);overflow:hidden;border:1px solid var(--bd)}
+.tbl th{background:var(--surf2);font-weight:600;text-align:left;padding:.5rem .85rem;color:var(--tx2);font-size:.72rem;border-bottom:1px solid var(--bd2)}
+.tbl td{padding:.5rem .85rem;border-bottom:1px solid var(--bd);vertical-align:top}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:nth-child(even) td{background:#FAFAF8}
+.tbl-note{font-size:.72rem;color:var(--tx3);font-style:italic;display:block;margin-top:2px}
+
+/* PRIORITY DIAGRAM */
+.priority-chain{display:flex;flex-direction:column;gap:0;border:1px solid var(--bd);border-radius:var(--rl);overflow:hidden}
+.prow{display:grid;grid-template-columns:44px 1fr;border-bottom:1px solid var(--bd)}
+.prow:last-child{border-bottom:none}
+.pnum{display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;font-family:'Literata',serif}
+.pcon{padding:.7rem 1rem;display:flex;flex-direction:column;gap:2px}
+.pname{font-weight:600;font-size:.88rem}
+.pname-en{font-size:.74rem;color:var(--tx3);font-style:italic}
+.pdesc{font-size:.8rem;color:var(--tx2);line-height:1.5}
+
+/* TRAFFIC LIGHT */
+.tlight-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.6rem}
+.tlight-card{background:var(--surf);border:1px solid var(--bd);border-radius:var(--r);padding:.85rem 1rem;display:flex;align-items:flex-start;gap:.75rem}
+.tlight-dot{width:28px;height:28px;border-radius:50%;flex-shrink:0;margin-top:2px;border:2px solid rgba(0,0,0,.12)}
+.tlight-body{flex:1}
+.tlight-name{font-weight:600;font-size:.85rem;margin-bottom:3px}
+.tlight-desc{font-size:.79rem;color:var(--tx2);line-height:1.5}
+.tlight-en{font-size:.74rem;color:var(--tx3);font-style:italic;margin-top:2px}
+
+/* SIGNAL SHAPE LEGEND */
+.shape-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:.55rem}
+.shape-card{background:var(--surf);border:1px solid var(--bd);border-radius:var(--r);padding:.75rem .9rem;display:flex;align-items:center;gap:.75rem}
+.shape-icon{width:42px;height:42px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.4rem}
+.shape-body .name{font-weight:600;font-size:.83rem}
+.shape-body .en{font-size:.73rem;color:var(--tx3);font-style:italic}
+.shape-body .eg{font-size:.72rem;color:var(--tx2);margin-top:2px}
+
+/* SVG ILLUSTRATIONS */
+svg.illus{display:block;max-width:100%;margin:0 auto}
+
+/* SIGNAL ROWS for new 2025 signals */
+.sig-row{display:flex;align-items:flex-start;gap:.85rem;padding:.6rem 0;border-bottom:1px solid var(--bd)}
+.sig-row:last-child{border-bottom:none}
+.sig-code{min-width:60px;font-size:.7rem;font-weight:700;font-family:monospace;color:var(--ac);background:var(--ac2);border-radius:4px;padding:2px 6px;text-align:center;flex-shrink:0;margin-top:2px}
+.sig-body{flex:1}
+.sig-name{font-weight:600;font-size:.85rem;margin-bottom:2px}
+.sig-desc{font-size:.8rem;color:var(--tx2);line-height:1.5}
+.sig-en{font-size:.75rem;color:var(--tx3);font-style:italic;margin-top:2px}
+.sig-trap{font-size:.74rem;background:#FFF8E1;border-radius:4px;padding:2px 7px;color:#7A5010;margin-top:4px;display:inline-block}
+
+/* WORK ZONES */
+.works-box{background:#FFFDE8;border:1px solid #E8D84A;border-left:4px solid #C9A020;border-radius:var(--r);padding:.8rem 1rem;margin-bottom:.6rem;font-size:.84rem;line-height:1.6;color:#5A4808}
+
+/* BEACONING GRID */
+.beacon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.55rem}
+.beacon-card{background:var(--surf);border:1px solid var(--bd);border-radius:var(--r);padding:.75rem .9rem}
+.beacon-name{font-weight:600;font-size:.85rem;color:var(--tx);margin-bottom:3px}
+.beacon-en{font-size:.72rem;color:var(--tx3);font-style:italic;margin-bottom:.3rem}
+.beacon-desc{font-size:.79rem;color:var(--tx2);line-height:1.5}
+
+/* TRAFFIC LEVELS */
+.level-row{display:flex;align-items:center;gap:.85rem;padding:.55rem .9rem;border-bottom:1px solid var(--bd);font-size:.84rem}
+.level-row:last-child{border-bottom:none}
+.level-dot{width:32px;height:32px;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.75rem}
+.level-body{flex:1}
+.level-es{font-weight:600}
+.level-en{font-size:.76rem;color:var(--tx3);font-style:italic}
+
+/* VOCAB */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:.45rem}
+.vocab-item{background:var(--surf);border:1px solid var(--bd);border-radius:var(--r);padding:.55rem .82rem}
+.vocab-es{font-weight:600;font-size:.86rem;color:var(--ac)}
+.vocab-en{font-size:.74rem;color:var(--tx2);margin-top:2px}
+.vocab-note{font-size:.7rem;color:var(--tx3);margin-top:2px;font-style:italic}
+
+@media(max-width:620px){
+  .g2,.g3,.g4{grid-template-columns:1fr}
+}
+
+/* Shared overrides */
+.tema-block{margin-bottom:0;scroll-margin-top:65px}
+.tema-divider{border:none;border-top:3px solid var(--bd2);margin:2.5rem 0}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div>
+    <div class="topbar-brand">DGT · Apuntes de Estudio</div>
+    <div class="topbar-sub">Bilingual · Spanish primary · English gloss</div>
+  </div>
+  <nav class="tnav">
+    <a class="tpill" href="#tema1">T1 · Definiciones</a>
+    <a class="tpill" href="#tema2">T2 · Señalización</a>
+    <span class="tpill" style="opacity:.4;cursor:default">T3 · pendiente</span>
+    <span class="tpill" style="opacity:.4;cursor:default">T4 · pendiente</span>
+  </nav>
+</div>
+
+<div class="page">
+
+<!-- ═══════════ TEMA 1 ═══════════ -->
+<div class="tema-block" id="tema1">
+  <div class="tema-header" style="scroll-margin-top:65px">
+    <span class="tema-num">TEMA 1</span>
+    <div>
+      <div class="tema-title">Definiciones y documentación</div>
+      <div class="tema-title-en">Definitions, vehicle types, licences, documentation &amp; penalties</div>
+    </div>
+  </div>
+  
+    <div class="intro-box">
+      <strong>¿Qué se examina aquí?</strong> Expect 5–8 questions from this topic out of 30. Examiners love <strong>exact thresholds</strong> (cc, kg, ages, deadlines), what each <strong>licence authorises</strong>, and which <strong>infractions cost how many points</strong>. "Approximately" gets you marked wrong — memorise the numbers precisely.
+    </div>
+
+    <!-- 1. VEHICLE CLASSIFICATION -->
+    <div class="section">
+      <div class="sec-title">1. Clasificación de vehículos <span class="en">· Vehicle classification</span></div>
+      <p style="font-size:.86rem;color:var(--tx2);margin-bottom:.75rem;line-height:1.65">The top-level legal split determines insurance obligations and licence requirements. <em>Ciclomotores</em> have engines but are legally <strong>not</strong> considered vehículos de motor — this trips people up constantly.</p>
+      <div class="vtree">
+        <div class="vrow">
+          <div class="vcat" style="background:#E8EFF8">
+            <div class="vcat-n">🚗 Vehículos de motor</div>
+            <div class="vcat-e">Motor vehicles</div>
+            <div style="margin-top:4px;font-size:.68rem;color:var(--ac)">Automóviles + Especiales</div>
+          </div>
+          <div class="vitems">
+            <span class="badge b-bl">Turismo</span><span class="badge b-bl">Pick-up</span><span class="badge b-bl">Derivado de turismo</span><span class="badge b-bl">Vehículo mixto adaptable</span><span class="badge b-bl">Motocicleta</span><span class="badge b-bl">Vehículo 3 ruedas</span><span class="badge b-bl">Cuatriciclo pesado</span><span class="badge b-bl">Furgón / Furgoneta</span><span class="badge b-bl">Camión</span><span class="badge b-bl">Tractocamión</span><span class="badge b-bl">Vehículo articulado</span><span class="badge b-bl">Tren de carretera</span><span class="badge b-bl">Autobús / Autocar</span><span class="badge b-bl">Autocaravana</span><span class="badge b-bl">Trolebús</span><span class="badge b-gy">V. especial obras</span><span class="badge b-gy">V. especial agrícola</span><span class="badge b-gy">Tractor agrícola</span><span class="badge b-gy">Tren turístico</span>
+          </div>
+        </div>
+        <div class="vrow">
+          <div class="vcat" style="background:var(--am2)">
+            <div class="vcat-n">🛵 No considerados de motor</div>
+            <div class="vcat-e">Not classed as motor vehicles</div>
+            <div style="margin-top:4px;font-size:.68rem;color:var(--am)">Have engines — but excluded legally</div>
+          </div>
+          <div class="vitems">
+            <span class="badge b-am">Tranvía</span><span class="badge b-am">Ciclomotor 2 ruedas</span><span class="badge b-am">Ciclomotor 3 ruedas</span><span class="badge b-am">Cuatriciclo ligero</span><span class="badge b-am">V. movilidad reducida (PMR)</span><span class="badge b-am">Bici pedaleo asistido</span><span class="badge b-am">Ciclo de motor</span><span class="badge b-am">V. movilidad personal (VMP)</span>
+          </div>
+        </div>
+        <div class="vrow">
+          <div class="vcat" style="background:var(--te2)">
+            <div class="vcat-n">🚲 Sin motor</div>
+            <div class="vcat-e">Non-motorised</div>
+          </div>
+          <div class="vitems">
+            <span class="badge b-te">Ciclo</span><span class="badge b-te">Bicicleta</span><span class="badge b-te">V. tracción animal</span><span class="badge b-te">Remolque / Semirremolque</span><span class="badge b-te">Caravana</span><span class="badge b-te">Maquinaria agrícola remolcada</span>
+          </div>
+        </div>
+      </div>
+      <div class="trap">
+        <div class="trap-lbl">⚠ Exam trap — tranvía vs trolebús</div>
+        <p>A <em>trolebús</em> runs on electricity from overhead wires, has no rails → <strong>IS a vehículo de motor</strong>. A <em>tranvía</em> also runs on electricity but has <strong>rails</strong> → NOT a vehículo de motor. The distinction is rails, not the engine type.</p>
+        <span class="en">Trolleybus (no rails) = motor vehicle. Tram (rails) = not a motor vehicle.</span>
+      </div>
+      <div class="trap">
+        <div class="trap-lbl">⚠ Exam trap — ciclomotor vs motocicleta</div>
+        <p>A <strong>ciclomotor</strong> must have engine ≤ <span class="hl">50 cc</span> AND max speed ≤ <span class="hl">45 km/h</span> by construction. If it exceeds EITHER limit it becomes a <strong>motocicleta</strong>. Both conditions must hold simultaneously.</p>
+        <span class="en">Moped: ≤50cc AND ≤45km/h. Exceed either one → motorcycle.</span>
+      </div>
+    </div>
+
+    <!-- 2. KEY VEHICLE SPECS -->
+    <div class="section">
+      <div class="sec-title">2. Definiciones específicas — datos exactos <span class="en">· Exact specs tested in the exam</span></div>
+      <table class="tbl">
+        <thead><tr><th>Vehículo</th><th>English</th><th>Dato clave para el examen</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Turismo (M1)</strong></td><td>Passenger car</td><td>≥ 4 ruedas, máx. <span class="hl">8 plazas</span> + conductor. Si más de 8 plazas → autobús.<span class="tbl-note">The 8-seat threshold is the most tested number in vehicle definitions.</span></td></tr>
+          <tr><td><strong>Autobús / Autocar</strong></td><td>Bus / Coach</td><td>Más de <span class="hl">9 plazas</span> incluido el conductor.<span class="tbl-note">Note: the count includes the driver. 9 seats total including driver = still a car. 10 = bus.</span></td></tr>
+          <tr><td><strong>Pick-up</strong></td><td>Pick-up truck</td><td>MMA ≤ 3.500 kg. Plazas y carga en compartimentos <strong>separados</strong>. Altura ≤ <span class="hl">2 m</span>.</td></tr>
+          <tr><td><strong>Furgón / Furgoneta</strong></td><td>Van</td><td>Cabina <strong>integrada</strong> en la carrocería. Máx. 9 plazas incl. conductor.<span class="tbl-note">Key word: integrada. The cab merges with the body.</span></td></tr>
+          <tr><td><strong>Camión</strong></td><td>Truck</td><td>Cabina <strong>NO integrada</strong> (separada). Máx. 9 plazas incl. conductor.<span class="tbl-note">Same seat limit as furgoneta — only the cab structure differs.</span></td></tr>
+          <tr><td><strong>Tractocamión</strong></td><td>Tractor unit</td><td>Construido para arrastrar un <strong>semirremolque</strong>. No tiene plataforma de carga propia.</td></tr>
+          <tr><td><strong>Vehículo articulado</strong></td><td>Articulated lorry</td><td>Tractocamión + semirremolque acoplado = conjunto completo.</td></tr>
+          <tr><td><strong>Tren de carretera</strong></td><td>Road train</td><td>Vehículo de motor + <strong>remolque</strong> (not semirremolque). Different licence rules apply.</td></tr>
+          <tr><td><strong>Cuatriciclo ligero</strong></td><td>Light quadricycle</td><td>≤ 45 km/h, ≤ <span class="hl">50 cc</span> (chispa) / ≤ <span class="hl">500 cc</span> (compresión), máx. <span class="hl">2 plazas</span>.<span class="tbl-note">Two different cc limits depending on engine ignition type.</span></td></tr>
+          <tr><td><strong>Cuatriciclo pesado</strong></td><td>Heavy quadricycle</td><td>Masa ≤ <span class="hl">450 kg</span> (pasajeros) / ≤ <span class="hl">600 kg</span> (mercancías).<span class="tbl-note">Two different weight limits by use — exam tests which is which.</span></td></tr>
+          <tr><td><strong>Remolque ligero</strong></td><td>Light trailer</td><td>MMA ≤ <span class="hl">750 kg</span>. Critical threshold for B licence and insurance.</td></tr>
+          <tr><td><strong>Semirremolque</strong></td><td>Semi-trailer</td><td>Reposa <strong>parcialmente</strong> sobre el tractor, transfiriéndole masa. A remolque supports its own weight.</td></tr>
+          <tr><td><strong>V. acondicionado</strong></td><td>Refrigerated vehicle</td><td>Pared lateral con aislamiento ≥ <span class="hl">45 mm</span>.</td></tr>
+          <tr><td><strong>Bici pedaleo asistido</strong></td><td>Pedelec / e-bike</td><td>Motor ≤ <span class="hl">250 W</span>. Asistencia se interrumpe a <span class="hl">25 km/h</span> o al dejar de pedalear.</td></tr>
+          <tr><td><strong>V. movilidad personal (VMP)</strong></td><td>E-scooter / personal device</td><td>1 plaza, eléctrico, velocidad entre <span class="hl">6 y 25 km/h</span>. Con asiento sólo si tiene autoequilibrado.</td></tr>
+          <tr><td><strong>Carsharing</strong></td><td>Car-sharing vehicle</td><td>Alquiler sin conductor, uso concatenado, disponible vía <strong>app móvil</strong>, dentro de zona delimitada.</td></tr>
+        </tbody>
+      </table>
+      <div class="trap" style="margin-top:.65rem">
+        <div class="trap-lbl">⚠ Exam trap — furgoneta vs camión</div>
+        <p>Both can have max 9 seats. The only difference: <em>furgoneta</em> has the cab <strong>integrated</strong> into the body. <em>Camión</em> has the cab <strong>separate</strong>. The exam describes one and asks you to name it.</p>
+      </div>
+    </div>
+
+    <!-- 3. ROAD USERS -->
+    <div class="section">
+      <div class="sec-title">3. Personas en la circulación <span class="en">· Road user definitions</span></div>
+      <div class="def-grid">
+        <div class="def-card">
+          <div class="def-name">Conductor</div><span class="def-name-en">Driver</span>
+          <div class="def-es">Persona que maneja el mecanismo de dirección o va al mando de un vehículo. En vehículos de aprendizaje, el <strong>conductor</strong> es quien está a cargo de los <strong>mandos adicionales</strong> (el instructor, no el alumno).</div>
+          <div class="def-en">In a learner vehicle, the instructor at the dual controls is legally the driver — not the student.</div>
+          <div class="def-trap">⚠ Exam: who is the "conductor" in a driving lesson? → The instructor.</div>
+        </div>
+        <div class="def-card">
+          <div class="def-name">Peatón</div><span class="def-name-en">Pedestrian</span>
+          <div class="def-es">Persona que transita a pie por vías públicas. <strong>También son peatones:</strong> quien empuja un cochecito de niño o de discapacitado; quien conduce a pie un ciclo o ciclomotor de 2 ruedas; personas con discapacidad en silla de ruedas al paso (con o sin motor).</div>
+          <div class="def-en">Pushing a pram, walking a bike/moped, using a wheelchair at walking pace → all count as pedestrians.</div>
+          <div class="def-trap">⚠ Exam: Is someone pushing a bicycle a peatón? → Yes.</div>
+        </div>
+        <div class="def-card">
+          <div class="def-name">Titular del vehículo</div><span class="def-name-en">Registered owner</span>
+          <div class="def-es">Persona a cuyo nombre figura inscrito el vehículo en el registro oficial. No necesariamente es quien lo conduce ni quien tiene el seguro.</div>
+          <div class="def-en">The registered owner. Can be a different person from the driver and from the insurance policyholder.</div>
+          <div class="def-trap">⚠ Three distinct roles: titular ≠ conductor ≠ tomador del seguro.</div>
+        </div>
+        <div class="def-card">
+          <div class="def-name">Tomador del seguro</div><span class="def-name-en">Insurance policyholder</span>
+          <div class="def-es">Persona que contrata el seguro de responsabilidad civil obligatorio con la compañía de seguros. Puede ser distinta del titular y del conductor.</div>
+          <div class="def-en">The person who takes out the compulsory insurance policy. May differ from owner and driver.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. LICENCES -->
+    <div class="section">
+      <div class="sec-title">4. Permisos y licencias de conducción <span class="en">· Driving licences</span></div>
+      <p style="font-size:.85rem;color:var(--tx2);margin-bottom:.9rem;line-height:1.65">The exam heavily tests minimum ages, what each licence authorises, and the B licence exceptions. Know the exact kW and cc limits for motorcycle licences — they come up verbatim.</p>
+      <div class="lic-grid">
+        <div class="lic-card"><div><span class="lic-name" style="color:var(--tx2)">LCM</span><span class="lic-age">desde 14 años</span></div><div class="lic-body">Vehículos para personas de movilidad reducida (PMR).</div><div class="lic-note">Sin pasajeros hasta los 16 años. No necesaria con A1 o B en vigor.</div></div>
+        <div class="lic-card"><div><span class="lic-name" style="color:var(--tx2)">LVA</span><span class="lic-age">desde 16 años</span></div><div class="lic-body">Vehículos especiales agrícolas y conjuntos ≤ 45 km/h.</div><div class="lic-note">No necesaria con B en vigor. Obtener B anula la LVA.</div></div>
+        <div class="lic-card" style="border-color:var(--am)"><div><span class="lic-name" style="color:var(--am)">AM</span><span class="lic-age">desde 15 años</span></div><div class="lic-body"><ul><li>Ciclomotores 2 y 3 ruedas</li><li>Cuatriciclos ligeros</li><li>Vehículos PMR</li></ul></div><div class="lic-trap">⚠ Youngest permiso. Can be restricted to 3-wheel/quad only.</div></div>
+        <div class="lic-card" style="border-color:var(--am)"><div><span class="lic-name" style="color:var(--am)">A1</span><span class="lic-age">desde 16 años</span></div><div class="lic-body">AM + motos ≤ <span class="hl">125 cc</span> / ≤ <span class="hl">11 kW</span> / ≤ 0,1 kW/kg + triciclos ≤ <span class="hl">15 kW</span></div><div class="lic-trap">⚠ Three simultaneous limits for A1 motos: cc, kW AND kW/kg ratio.</div></div>
+        <div class="lic-card" style="border-color:var(--am)"><div><span class="lic-name" style="color:var(--am)">A2</span><span class="lic-age">desde 18 años</span></div><div class="lic-body">AM + A1 + motos ≤ <span class="hl">35 kW</span> / ≤ 0,2 kW/kg. No derivadas de vehículo con más del doble de su potencia.</div><div class="lic-trap">⚠ The "no derivadas" rule: can't be a de-tuned version of a more powerful bike.</div></div>
+        <div class="lic-card" style="border-color:var(--am)"><div><span class="lic-name" style="color:var(--am)">A</span><span class="lic-age">desde 20 años</span></div><div class="lic-body">AM + A1 + A2 + todas las motos sin límite de potencia. Triciclos &gt;15 kW sólo desde 21 años.</div><div class="lic-note">Requiere A2 + mínimo <strong>2 años</strong> de experiencia.</div><div class="lic-trap">⚠ Can't jump from A1 to A — must hold A2 for 2 years first.</div></div>
+        <div class="lic-card" style="border-color:var(--ac);border-width:2px;grid-column:span 2"><div><span class="lic-name" style="color:var(--ac)">B</span><span class="lic-age">desde 18 años</span></div>
+          <div class="lic-body" style="columns:2;column-gap:1.2rem">
+            Automóviles ≤ <span class="hl">3.500 kg</span> MMA / ≤ 8 pasajeros + conductor.<br>
+            Remolque ≤ <span class="hl">750 kg</span> — o remolque &gt;750 kg si el <strong>conjunto total ≤ 3.500 kg</strong>.<br><br>
+            También: triciclos/cuatriciclos de motor (triciclos &gt;15 kW desde 21 años), ciclomotores, cuatriciclos ligeros, PMR.<br>
+            Vehículos especiales no agrícolas: ≤ 40 km/h y ≤ 3.500 kg MMA.<br>
+            Vehículos especiales agrícolas: todos, incluso los que superen masas/velocidad.
+          </div>
+          <div class="lic-note" style="margin-top:.5rem">Con B &gt; <strong>3 años</strong> → motos A1 en territorio nacional. Con B &gt; <strong>2 años</strong> → vehículos combustible alternativo hasta <strong>4.250 kg</strong> MMA (sin remolque, sin incremento de carga).</div>
+          <div class="lic-trap">⚠ B does NOT authorise motorcycles. Only A1 motos after 3 years of holding B. This is one of the most tested rules.</div>
+        </div>
+        <div class="lic-card"><div><span class="lic-name" style="color:var(--ac)">B96</span><span class="lic-age">18 años</span></div><div class="lic-body">B + remolque &gt;750 kg. Conjunto ≤ <span class="hl">4.250 kg</span>.</div><div class="lic-note">Código 96 adicional al B — not a separate licence.</div></div>
+        <div class="lic-card"><div><span class="lic-name" style="color:var(--ac)">B+E</span><span class="lic-age">18 años</span></div><div class="lic-body">B + remolque/semirremolque MMA ≤ <span class="hl">3.500 kg</span>. Sin límite de conjunto total.</div></div>
+      </div>
+      <div class="trap">
+        <div class="trap-lbl">⚠ Exam trap — B licence trailer thresholds</div>
+        <p>Permiso B: trailer ≤750 kg free. Heavier trailer OK if combined total ≤3.500 kg. Combined 3.500–4.250 kg → need B96. Trailer MMA ≤3.500 kg but combined >4.250 kg → need B+E. The exam gives you numbers and asks which licence.</p>
+      </div>
+      <div class="g2" style="margin-top:.75rem">
+        <div class="co co-bl">
+          <strong>Vigencia / Validity</strong><br>
+          AM, A1, A2, A, B, B+E → <span class="hl">10 años</span> hasta los 65 años.<br>
+          Desde los <span class="hl">65 años</span> → renovar cada <span class="hl">5 años</span>.
+          <span class="en">Valid 10 years until age 65, then every 5 years.</span>
+        </div>
+        <div class="co co-am">
+          <strong>Crédito inicial de puntos</strong><br>
+          General: <span class="hl">12 puntos</span>. Nuevo conductor (&lt;3 años) o tras perder todos: <span class="hl">8 puntos</span>.<br>
+          8 pts → 12 pts después de 2 años sin perder puntos.
+          <span class="en">New drivers start on 8 points, reach 12 after 2 clean years.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. POINTS SYSTEM -->
+    <div class="section">
+      <div class="sec-title">5. Sistema de puntos <span class="en">· Points system</span></div>
+      <div class="g2" style="margin-bottom:.7rem">
+        <div class="card">
+          <div style="font-size:.73rem;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.6rem">Escala · Scale</div>
+          <div class="pts-scale" style="margin-bottom:7px">
+            <div class="pts-seg" style="flex:8;background:#C0392B">0</div>
+            <div class="pts-seg" style="flex:4;background:#E67E22">8</div>
+            <div class="pts-seg" style="flex:4;background:#27AE60">12</div>
+            <div class="pts-seg" style="flex:3;background:#1A7A5E">15</div>
+          </div>
+          <div style="font-size:.7rem;color:var(--tx3);display:flex;gap:8px;flex-wrap:wrap">
+            <span>🔴 0=retirado</span><span>🟠 8=nuevo</span><span>🟢 12=estándar</span><span>🌿 15=máximo</span>
+          </div>
+        </div>
+        <div class="card">
+          <div style="font-size:.73rem;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.6rem">Cómo llegar a 15 pts · Reaching maximum</div>
+          <div style="font-size:.84rem;line-height:1.9">
+            12 pts + <span class="hl">+2 pts</span> → 3 primeros años sin sanciones<br>
+            14 pts + <span class="hl">+1 pt</span> → 3 años siguientes sin sanciones<br>
+            → <span class="hl-te">15 puntos (máximo alcanzable)</span><br>
+            <span style="font-size:.73rem;color:var(--tx3)">Crédito único para todos los permisos del conductor.</span>
+          </div>
+        </div>
+      </div>
+      <div class="g2">
+        <div class="co co-am">
+          <strong>Recuperación parcial</strong><br>
+          Máx. <span class="hl">4 puntos</span>, una sola vez cada <span class="hl">2 años</span>.<br>
+          Via: curso homologado, o 2 años consecutivos sin infracciones de pérdida de puntos.
+          <span class="en">Max 4 pts recovered, once every 2 years — via course or 2 clean years.</span>
+        </div>
+        <div class="co co-re">
+          <strong>Pérdida total (0 pts)</strong><br>
+          Nuevo permiso sólo tras <span class="hl">6 meses</span> + curso de sensibilización + examen en Jefatura.<br>
+          Al recuperarlo: crédito inicial de <span class="hl">8 puntos</span>.
+          <span class="en">6-month wait + awareness course + test. Restart on 8 points.</span>
+        </div>
+      </div>
+      <div class="co co-gy" style="margin-top:.5rem;font-size:.83rem">
+        <strong>Responsabilidad / Liability:</strong> Conductor responsible for: passenger not wearing helmet, underage passengers, children without child restraint. When infringer is under 18, parents/guardians share fine liability (<em>responsabilidad solidaria</em>).
+      </div>
+    </div>
+
+    <!-- 6. POINT DEDUCTIONS -->
+    <div class="section">
+      <div class="sec-title">6. Infracciones con pérdida de puntos <span class="en">· Point-deduction offences</span></div>
+      <p style="font-size:.85rem;color:var(--tx2);margin-bottom:.85rem;line-height:1.65">Alcohol limits, phone use, and radar devices each appear in two penalty tiers. Know the precise thresholds that separate 6 points from 4 points from 3 points.</p>
+      <div class="pen-block">
+        <div class="pen-head ph6"><div class="pdot pd6">6</div><span>Pérdida de 6 puntos — most serious offences</span></div>
+        <div class="pen-item"><span class="pi-bul">→</span><div>Alcohol &gt; <span class="hl-re">0,50 mg/l</span> aire espirado (profesionales/noveles &lt;2 años permiso: &gt; <span class="hl-re">0,30 mg/l</span>)<span class="en">Breath alcohol exceeding the limit — lower threshold applies to professionals and new drivers.</span></div></div>
+        <div class="pen-item"><span class="pi-bul">→</span><div>Conducir con <strong>presencia de drogas</strong> en el organismo (any amount)<span class="en">Driving with any drugs present in the body.</span></div></div>
+        <div class="pen-item"><span class="pi-bul">→</span><div><strong>Negarse</strong> a pruebas de detección de alcohol o drogas<span class="en">Refusing a roadside alcohol or drugs test.</span></div></div>
+        <div class="pen-item"><span class="pi-bul">→</span><div>Conducción <strong>temeraria</strong>, circular en sentido contrario, participar en carreras no autorizadas<span class="en">Reckless driving, wrong-way driving, unauthorised racing.</span></div></div>
+        <div class="pen-item"><span class="pi-bul">→</span><div>Llevar instalados <strong>inhibidores</strong> de radares o cinemómetros (interference devices)<span class="en">Having radar/speed-camera JAMMERS installed. (Detectors only = 3 pts — see below.)</span></div></div>
+        <div class="pen-item"><span class="pi-bul">→</span><div>Exceso &gt;50% tiempos de conducción o reducción &gt;50% tiempos de descanso (transporte profesional)<span class="en">Exceeding pro driver hours by >50% or cutting rest by >50%.</span></div></div>
+        <div class="pen-item"><span class="pi-bul">→</span><div>Manipular o colaborar en manipulación del <strong>tacógrafo</strong> o limitador de velocidad<span class="en">Tampering with tachograph or speed limiter.</span></div></div>
+        <div class="pen-item"><span class="pi-bul">→</span><div>Usar el móvil <strong>sujetándolo con la mano</strong> mientras se conduce<span class="en">Using a handheld mobile phone while driving (hand physically holding it).</span></div></div>
+        <div class="pen-item"><span class="pi-bul">→</span><div>Arrojar objetos que puedan provocar <strong>incendios o accidentes</strong><span class="en">Throwing objects onto the road that could cause fire or accident.</span></div></div>
+        <div class="pen-item"><span class="pi-bul">→</span><div>Adelantar a ciclistas poniendo en peligro o sin <span class="hl-re">1,5 m</span> de separación mínima<span class="en">Overtaking cyclists dangerously or without the 1.5m minimum lateral gap.</span></div></div>
+      </div>
+      <div class="pen-block">
+        <div class="pen-head ph4"><div class="pdot pd4">4</div><span>Pérdida de 4 puntos</span></div>
+        <div class="pen-item"><span class="pi-bul">→</span><div>Alcohol entre <span class="hl">0,25–0,50 mg/l</span> (profesionales/noveles: 0,15–0,30 mg/l)<span class="en">Breath alcohol in the medium band — lower band for professionals and new drivers.</span></div></div>
+        <div class="pen-item"><span class="pi-bul">→</span><div>Incumplir <strong>prioridad de paso</strong>, stop, ceda el paso, semáforo en rojo<span class="en">Failing to give way, ignoring stop/give-way/red light.</span></div></div>
+        <div class="pen-item"><span class="pi-bul">→</span><div>Adelantamiento peligroso con riesgo para sentido contrario o en visibilidad reducida<span class="en">Dangerous overtaking endangering oncoming traffic, or overtaking in poor visibility.</span></div></div>
+        <div class="pen-item"><span class="pi-bul">→</span><div>No respetar señales o instrucciones de los <strong>agentes de tráfico</strong><span class="en">Disobeying traffic officers' signals or instructions.</span></div></div>
+        <div class="pen-item"><span class="pi-bul">→</span><div>No mantener la <strong>distancia de seguridad</strong> con el vehículo precedente<span class="en">Failing to maintain a safe following distance.</span></div></div>
+        <div class="pen-item"><span class="pi-bul">→</span><div>No usar o usar incorrectamente el <strong>cinturón</strong>, casco, sistemas retención infantil<span class="en">Not wearing or incorrectly wearing seatbelt, helmet, or child restraint.</span></div></div>
+        <div class="pen-item"><span class="pi-bul">→</span><div>Conducir con permiso que <strong>no habilita</strong> para ese vehículo<span class="en">Driving a vehicle your licence doesn't cover.</span></div></div>
+        <div class="pen-item"><span class="pi-bul">→</span><div>Conducir con autorización <strong>suspendida</strong> o con uso del vehículo prohibido<span class="en">Driving with a suspended licence or banned vehicle.</span></div></div>
+        <div class="pen-item"><span class="pi-bul">→</span><div><strong>Marcha atrás en autopistas y autovías</strong><span class="en">Reversing on motorways or dual carriageways.</span></div></div>
+      </div>
+      <div class="pen-block">
+        <div class="pen-head ph3"><div class="pdot pd3">3</div><span>Pérdida de 3 puntos</span></div>
+        <div class="pen-item"><span class="pi-bul">→</span><div><strong>Cambio de sentido</strong> (U-turn) incumpliendo las disposiciones legales<span class="en">Illegal U-turn.</span></div></div>
+        <div class="pen-item"><span class="pi-bul">→</span><div>Conducir con <strong>auriculares / cascos de audio</strong> conectados, o usando el móvil de formas que distraen (distintas al uso manual que ya son 6 pts)<span class="en">Driving with audio headphones/earphones. Using phone in other distracting ways (not handheld = 6pts).</span></div></div>
+        <div class="pen-item"><span class="pi-bul">→</span><div>Llevar mecanismos de <strong>detección</strong> de radares o cinemómetros (NOT jammers — those are 6 pts)<span class="en">Carrying radar/speed-camera DETECTORS. Jammers (which block signals) = 6 points. Detectors (which alert) = 3 points.</span></div></div>
+      </div>
+      <div class="trap">
+        <div class="trap-lbl">⚠ Exam trap — inhibidor vs detector + alcohol thresholds</div>
+        <p><strong>Inhibidor</strong> (blocks/jams signal) → <span class="hl-re">6 puntos</span>. <strong>Detector</strong> (only alerts you) → <span class="hl">3 puntos</span>.<br>
+        Alcohol for general drivers: 0–0.25 legal / 0.25–0.50 = 4pts / &gt;0.50 = 6pts.<br>
+        Alcohol for professionals &amp; new drivers: 0–0.15 legal / 0.15–0.30 = 4pts / &gt;0.30 = 6pts.</p>
+      </div>
+    </div>
+
+    <!-- 7. SPEED PENALTIES -->
+    <div class="section">
+      <div class="sec-title">7. Sanciones por exceso de velocidad <span class="en">· Speed penalty table</span></div>
+      <p style="font-size:.84rem;color:var(--tx2);margin-bottom:.7rem;line-height:1.65">Points depend on how much you exceed the limit, not the absolute speed. The first band (≤20 km/h over) only gives a fine — <strong>no point deduction</strong>.</p>
+      <div class="spd-wrap">
+        <table class="spd-tbl">
+          <thead>
+            <tr><th rowspan="2" style="text-align:left;padding-left:7px">Exceso sobre límite</th><th colspan="12">Velocidad límite permitida → velocidad registrada (km/h)</th><th rowspan="2">Multa</th><th rowspan="2">Pts</th></tr>
+            <tr><th>20</th><th>30</th><th>40</th><th>50</th><th>60</th><th>70</th><th>80</th><th>90</th><th>100</th><th>110</th><th>120</th><th>130</th></tr>
+          </thead>
+          <tbody>
+            <tr class="sg"><td class="s-cat" rowspan="4">GRAVE</td><td>21–40</td><td>31–50</td><td>41–60</td><td>51–70</td><td>61–90</td><td>71–100</td><td>81–110</td><td>91–120</td><td>101–130</td><td>111–140</td><td>121–150</td><td>131–150</td><td class="s-fine">100€</td><td style="color:var(--tx3);font-weight:600">—</td></tr>
+            <tr class="sg"><td>41–50</td><td>51–60</td><td>61–70</td><td>71–80</td><td>91–110</td><td>101–120</td><td>111–130</td><td>121–140</td><td>131–150</td><td>141–160</td><td>151–170</td><td>151–170</td><td class="s-fine">300€</td><td class="s-pts">2</td></tr>
+            <tr class="sg"><td>51–60</td><td>61–70</td><td>71–80</td><td>81–90</td><td>111–120</td><td>121–130</td><td>131–140</td><td>141–150</td><td>151–160</td><td>161–170</td><td>171–180</td><td>171–180</td><td class="s-fine">400€</td><td class="s-pts">4</td></tr>
+            <tr class="sg"><td>61–70</td><td>71–80</td><td>81–90</td><td>91–100</td><td>121–130</td><td>131–140</td><td>141–150</td><td>151–160</td><td>161–170</td><td>171–180</td><td>181–190</td><td>181–190</td><td class="s-fine">500€</td><td class="s-pts">6</td></tr>
+            <tr class="smg"><td class="s-cat" style="background:var(--re2);color:var(--re)">MUY GRAVE</td><td>71+</td><td>81+</td><td>91+</td><td>101+</td><td>131+</td><td>141+</td><td>151+</td><td>161+</td><td>171+</td><td>181+</td><td>191+</td><td>191+</td><td class="s-fine">600€</td><td class="s-pts">6</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="trap">
+        <div class="trap-lbl">⚠ How to use this table — practise this</div>
+        <p>You're on a 50 km/h road, caught at 98 km/h. Excess = 48 km/h. Find column "50", row where 98 falls → 91–100 range (51–70 excess band, 300€ row) → wait — 98–50=48, so 41–50 excess band → <strong>300€, 2 puntos</strong>. Always calculate excess first, then look up the band.</p>
+      </div>
+    </div>
+
+    <!-- 8. DOCUMENTATION -->
+    <div class="section">
+      <div class="sec-title">8. Documentación del vehículo <span class="en">· Vehicle documentation</span></div>
+      <div class="g3" style="margin-bottom:.75rem">
+        <div class="card">
+          <div style="font-weight:600;font-size:.9rem;margin-bottom:.4rem">Permiso de circulación</div>
+          <div style="font-size:.82rem;line-height:1.65">Acredita la matriculación y autoriza la circulación. Obligatorio: todos los vehículos de motor, ciclomotores, remolques/semirremolques &gt; <span class="hl">750 kg</span> MMA.<br><br>La antigüedad del vehículo se computa desde la <strong>primera matriculación</strong>.</div>
+        </div>
+        <div class="card">
+          <div style="font-weight:600;font-size:.9rem;margin-bottom:.4rem">Tarjeta ITV</div>
+          <div style="font-size:.82rem;line-height:1.65">Acredita condiciones técnicas. Obligatoria: todos los vehículos de motor, remolques y semirremolques (<strong>independientemente de su masa</strong>), caravanas.<br><br><span style="font-size:.74rem;color:var(--tx3)">ITV = all trailers regardless of weight. Permiso circulación = only trailers &gt;750 kg.</span></div>
+        </div>
+        <div class="card">
+          <div style="font-weight:600;font-size:.9rem;margin-bottom:.4rem">Permiso de conducción</div>
+          <div style="font-size:.82rem;line-height:1.65">Llevar siempre al conducir. Válido físico o digital (<span class="hl-bl">App miDGT</span>).<br><br>Recibo seguro = opcional. Los agentes verifican seguro vía <strong>FIVA</strong> (Fichero Informativo de Vehículos Asegurados).</div>
+        </div>
+      </div>
+      <div class="trap">
+        <div class="trap-lbl">⚠ Exam trap — ITV vs permiso de circulación for trailers</div>
+        <p><strong>Permiso de circulación</strong>: obligatorio para remolques MMA <strong>&gt; 750 kg</strong> only.<br><strong>Tarjeta ITV</strong>: obligatoria para remolques <strong>de cualquier masa</strong> (also caravanas).<br>Duplicates of the permiso de circulación automatically render the original invalid.</p>
+      </div>
+    </div>
+
+    <!-- 9. ITV -->
+    <div class="section">
+      <div class="sec-title">9. Inspección Técnica de Vehículos (ITV) <span class="en">· Roadworthiness inspection</span></div>
+      <div class="g3" style="margin-bottom:.7rem">
+        <div class="co co-te" style="margin:0"><strong>✓ Favorable (Pass)</strong><br>Consta en tarjeta ITV. Distintivo en el <span class="hl">ángulo superior derecho interior del parabrisas</span>.<span class="en">Sticker top-right inside windscreen.</span></div>
+        <div class="co co-am" style="margin:0"><strong>⚠ Desfavorable (Advisory fail)</strong><br>Se retiene la tarjeta. Plazo escrito &lt; <span class="hl">2 meses</span> para subsanar. Puede circular sólo al taller y de vuelta a ITV.<span class="en">Card retained. Under 2 months to fix. Can only drive workshop↔ITV.</span></div>
+        <div class="co co-re" style="margin:0"><strong>✗ Negativa (Dangerous fail)</strong><br>Vehículo peligroso. Traslado obligatorio en <span class="hl-re">grúa</span> — no puede circular por sus propios medios.<span class="en">Must be towed. Cannot drive away under own power.</span></div>
+      </div>
+      <table class="itv-tbl" style="margin-bottom:.6rem">
+        <thead><tr><th>Tipo de vehículo</th><th>Exento (new)</th><th>Bienal (2 años)</th><th>Anual (1 año)</th><th>Semestral (6 meses)</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Ciclomotores 2 ruedas</strong></td><td><span class="itv-y">≤ 3 años</span></td><td><span class="itv-y">desde 3 años</span></td><td><span class="itv-n">—</span></td><td><span class="itv-n">—</span></td></tr>
+          <tr><td><strong>Motos, 3 ruedas, cuatriciclos</strong></td><td><span class="itv-y">≤ 4 años</span></td><td><span class="itv-y">desde 4 años</span></td><td><span class="itv-n">—</span></td><td><span class="itv-n">—</span></td></tr>
+          <tr><td><strong>Turismos (≤ 8 plazas + conductor)</strong></td><td><span class="itv-y">≤ 4 años</span></td><td><span class="itv-y">4–10 años</span></td><td><span class="itv-y">desde 10 años</span></td><td><span class="itv-n">—</span></td></tr>
+          <tr><td><strong>Camiones, furgones, furgonetas (≤ 3,5 t)</strong></td><td><span class="itv-y">≤ 2 años</span></td><td><span class="itv-y">2–6 años</span></td><td><span class="itv-y">6–10 años</span></td><td><span class="itv-y">desde 10 años</span></td></tr>
+        </tbody>
+      </table>
+      <div class="co co-am" style="font-size:.82rem">
+        <strong>Inspecciones extraordinarias:</strong> (1) Tras reforma → <span class="hl">15 días</span> para presentar el vehículo (puede hacerlo persona autorizada). (2) Extravío de tarjeta ITV. (3) Daño importante por accidente.
+      </div>
+    </div>
+
+    <!-- 10. INSURANCE -->
+    <div class="section">
+      <div class="sec-title">10. Seguro obligatorio <span class="en">· Compulsory insurance</span></div>
+      <div class="g2" style="margin-bottom:.65rem">
+        <div class="co co-te"><strong>Cubre · Covers:</strong><br>Daños a <strong>terceros</strong> (personas y bienes) hasta el límite legal. Excepción: no cubre si el daño fue únicamente por culpa del perjudicado.<span class="en">Third-party injury and property damage to the legal limit.</span></div>
+        <div class="co co-re"><strong>NO cubre · Does NOT cover:</strong><br>✗ Daños al <strong>conductor causante</strong><br>✗ Daños al <strong>propio vehículo</strong> asegurado<br>✗ Las <strong>mercancías transportadas</strong><span class="en">Never covers: at-fault driver's injuries, own vehicle damage, transported goods.</span></div>
+      </div>
+      <div class="card" style="font-size:.82rem;line-height:1.7">
+        <strong>Obligados a asegurarse:</strong> todos los vehículos de motor, ciclomotores, remolques/semirremolques MMA &gt; 750 kg.<br>
+        <strong>Sin seguro:</strong> prohibición de circular + depósito/precinto del vehículo a cargo del propietario + los agentes pueden inmobilizarlo.<br>
+        <strong>FIVA:</strong> Fichero Informativo de Vehículos Asegurados — database used by traffic officers to verify insurance.<br>
+        <strong>Declaración amistosa de accidente:</strong> standardised form provided by insurer for reporting claims.
+      </div>
+      <div class="trap">
+        <div class="trap-lbl">⚠ Most common insurance exam questions</div>
+        <p>"Does compulsory insurance cover damage to the insured vehicle?" → <strong>No.</strong><br>
+        "Does it cover the at-fault driver's injuries?" → <strong>No.</strong><br>
+        "Does it cover transported goods?" → <strong>No.</strong><br>
+        It ONLY covers third-party damage.</p>
+      </div>
+    </div>
+
+    <!-- 11. DEADLINES -->
+    <div class="section">
+      <div class="sec-title">11. Plazos clave — memorización obligatoria <span class="en">· Key deadlines</span></div>
+      <div class="card">
+        <div class="dl-row"><span class="dl-num">10 días</span><div class="dl-text">Comunicar la <strong>venta</strong> del vehículo a la Jefatura de Tráfico.<span class="dl-en">Notify traffic authority of vehicle sale.</span></div></div>
+        <div class="dl-row"><span class="dl-num">15 días</span><div class="dl-text">Comunicar <strong>variación de datos</strong> en el permiso de conducción.<span class="dl-en">Report change of personal details on driving licence.</span></div></div>
+        <div class="dl-row"><span class="dl-num">15 días</span><div class="dl-text">Presentar el vehículo a ITV tras una <strong>reforma</strong>.<span class="dl-en">Submit vehicle for ITV after a modification.</span></div></div>
+        <div class="dl-row"><span class="dl-num">30 días</span><div class="dl-text">Comunicar la <strong>compra</strong> de un vehículo de ocasión.<span class="dl-en">Report purchase of a used vehicle.</span></div></div>
+        <div class="dl-row"><span class="dl-num">&lt; 2 meses</span><div class="dl-text">Subsanar defectos de ITV <strong>desfavorable</strong>.<span class="dl-en">Fix advisory ITV failure defects.</span></div></div>
+        <div class="dl-row"><span class="dl-num">6 meses</span><div class="dl-text">Espera mínima para nuevo permiso tras <strong>pérdida total de puntos</strong>.<span class="dl-en">Minimum wait after losing all points before new licence.</span></div></div>
+        <div class="dl-row" style="border:none"><span class="dl-num">2 años</span><div class="dl-text">Intervalo mínimo entre recuperaciones parciales de puntos (máx. 4 pts).<span class="dl-en">Minimum gap between partial points recovery sessions.</span></div></div>
+      </div>
+      <div class="trap">
+        <div class="trap-lbl">⚠ Exam trap — confusing 10 / 15 / 30 days</div>
+        <p>Sell → <strong>10 days</strong> (urgent, insurance risk). Change licence data → <strong>15 days</strong>. Vehicle modification → ITV in <strong>15 days</strong>. Buy used vehicle → <strong>30 days</strong>. The exam swaps these numbers deliberately.</p>
+      </div>
+    </div>
+
+    <!-- 12. VOCABULARY -->
+    <div class="section">
+      <div class="sec-title">12. Vocabulario esencial <span class="en">· Key vocabulary — click any word to look it up</span></div>
+      <div class="vocab-grid">
+        <div class="vocab-item"><div class="vocab-es">masa máxima autorizada (MMA)</div><div class="vocab-en">Maximum authorised mass / GVW</div></div>
+        <div class="vocab-item"><div class="vocab-es">cilindrada</div><div class="vocab-en">Engine displacement (cc)</div></div>
+        <div class="vocab-item"><div class="vocab-es">potencia</div><div class="vocab-en">Engine power (kW)</div></div>
+        <div class="vocab-item"><div class="vocab-es">remolque</div><div class="vocab-en">Trailer (own axles, own weight)</div></div>
+        <div class="vocab-item"><div class="vocab-es">semirremolque</div><div class="vocab-en">Semi-trailer (rests on tractor)</div></div>
+        <div class="vocab-item"><div class="vocab-es">tracción</div><div class="vocab-en">Drive / traction (4WD = tracción total)</div></div>
+        <div class="vocab-item"><div class="vocab-es">matrícula / matriculación</div><div class="vocab-en">Licence plate / registration</div></div>
+        <div class="vocab-item"><div class="vocab-es">subsanar</div><div class="vocab-en">To rectify / fix (a defect)</div></div>
+        <div class="vocab-item"><div class="vocab-es">inmovilización</div><div class="vocab-en">Immobilisation (by police)</div></div>
+        <div class="vocab-item"><div class="vocab-es">carrocería</div><div class="vocab-en">Bodywork / vehicle body</div></div>
+        <div class="vocab-item"><div class="vocab-es">antigüedad</div><div class="vocab-en">Age / seniority (of licence/vehicle)</div></div>
+        <div class="vocab-item"><div class="vocab-es">siniestro</div><div class="vocab-en">Accident / insurance claim event</div></div>
+        <div class="vocab-item"><div class="vocab-es">cinemómetro</div><div class="vocab-en">Speed-measuring device</div></div>
+        <div class="vocab-item"><div class="vocab-es">inhibidor de radar</div><div class="vocab-en">Radar jammer (illegal — 6 pts)</div></div>
+        <div class="vocab-item"><div class="vocab-es">detector de radar</div><div class="vocab-en">Radar detector (illegal — 3 pts)</div></div>
+        <div class="vocab-item"><div class="vocab-es">tacógrafo</div><div class="vocab-en">Tachograph (driving time recorder)</div></div>
+        <div class="vocab-item"><div class="vocab-es">mandos adicionales</div><div class="vocab-en">Dual controls (learner vehicle)</div></div>
+        <div class="vocab-item"><div class="vocab-es">responsabilidad solidaria</div><div class="vocab-en">Joint liability (parents share minor's fine)</div></div>
+        <div class="vocab-item"><div class="vocab-es">FIVA</div><div class="vocab-en">Insurance verification database</div></div>
+        <div class="vocab-item"><div class="vocab-es">pedaleo asistido</div><div class="vocab-en">Pedal-assisted (pedelec / e-bike)</div></div>
+      </div>
+    </div>
+  
+</div>
+
+<hr class="tema-divider">
+
+<!-- ═══════════ TEMA 2 ═══════════ -->
+<div class="tema-block" id="tema2" style="scroll-margin-top:65px">
+
+
+  <div class="tema-hdr">
+    <span class="tema-num">TEMA 2</span>
+    <div>
+      <div class="tema-title">Señalización de la vía</div>
+      <div class="tema-en">Road signalling — signals, traffic lights, beacons, road markings &amp; 2025 updates</div>
+    </div>
+  </div>
+
+  <div class="intro-box">
+    <strong>¿Qué se examina?</strong> This topic generates many exam questions — expect 6–10 out of 30. The examiners test: <strong>the exact priority order</strong> between signal types, the precise meaning of each <strong>traffic light colour and arrow</strong>, what each <strong>balizamiento device</strong> means, construction zone rules (yellow signs), and <strong>new 2025 signals</strong> (R-118, R-120, S-28, S-47, R-412b, new pictograms etc.). Scenario questions — "Agent vs traffic light: who wins?" — are very common.
+  </div>
+
+  <!-- ══════════════════════════════
+       1. PRIORITY ORDER
+  ═══════════════════════════════════ -->
+  <div class="section">
+    <div class="sec-title">1. Orden de preferencia entre señales <span class="sec-en">· Priority order of signal types</span></div>
+
+    <p style="font-size:.86rem;color:var(--tx2);margin-bottom:.85rem;line-height:1.65">This is the single most important concept in the topic. When two signals conflict, the higher-ranked one always wins. The exam regularly presents conflicts and asks what the driver must do.</p>
+
+    <div class="priority-chain">
+      <div class="prow">
+        <div class="pnum" style="background:#B03030;color:white">1º</div>
+        <div class="pcon">
+          <div class="pname">Señales y órdenes de los agentes de circulación</div>
+          <div class="pname-en">Traffic officer signals and orders</div>
+          <div class="pdesc">Prevalecen sobre <strong>todas las demás señales</strong>. Deben ser obedecidas inmediatamente. · Override <em>everything</em> — even a green light.</div>
+        </div>
+      </div>
+      <div class="prow">
+        <div class="pnum" style="background:#D4700E;color:white">2º</div>
+        <div class="pcon">
+          <div class="pname">Señalización circunstancial + dispositivos delimitadores + balizamiento</div>
+          <div class="pname-en">Circumstantial/temporary signalling, delimiting devices, beacons</div>
+          <div class="pdesc">Prevalece sobre el resto, <strong>excepto las órdenes de los agentes</strong>. Paneles de mensaje variable, señales de obras, barreras. · Temp signage beats everything except officers.</div>
+        </div>
+      </div>
+      <div class="prow">
+        <div class="pnum" style="background:#1B4D8E;color:white">3º</div>
+        <div class="pcon">
+          <div class="pname">Semáforos</div>
+          <div class="pname-en">Traffic lights</div>
+          <div class="pdesc">Prevalecen sobre las señales verticales y marcas viales. · Beat vertical signs and road markings.</div>
+        </div>
+      </div>
+      <div class="prow">
+        <div class="pnum" style="background:#1A7A5E;color:white">4º</div>
+        <div class="pcon">
+          <div class="pname">Señales verticales de circulación</div>
+          <div class="pname-en">Vertical traffic signs</div>
+          <div class="pdesc">Únicamente prevalecen sobre las marcas viales. · Only beat road markings.</div>
+        </div>
+      </div>
+      <div class="prow">
+        <div class="pnum" style="background:#5A554F;color:white">5º</div>
+        <div class="pcon">
+          <div class="pname">Marcas viales</div>
+          <div class="pname-en">Road markings (lines on the road)</div>
+          <div class="pdesc">No prevalecen sobre ninguna otra señal. · Lowest priority — overridden by everything else.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="trap" style="margin-top:.75rem">
+      <div class="trap-lbl">⚠ Exam trap — the "same type" rule</div>
+      <p>When two signals of the <strong>same type</strong> seem to contradict each other, the more <strong>restrictive</strong> one applies. For example, two vertical speed limit signs — obey the lower one.</p>
+      <span class="en">If two signals are the same rank and conflict → follow the more restrictive one.</span>
+    </div>
+
+    <!-- SVG: Priority conflict examples -->
+    <div class="g3" style="margin-top:.85rem">
+      <div class="card" style="padding:.85rem">
+        <div style="font-size:.72rem;font-weight:700;color:var(--re);letter-spacing:.07em;margin-bottom:.4rem;text-transform:uppercase">Ejemplo 1 · Example 1</div>
+        <!-- Officer vs beacon -->
+        <svg viewBox="0 0 180 90" class="illus" style="height:70px;margin-bottom:.5rem">
+          <!-- Road -->
+          <rect x="0" y="45" width="180" height="30" fill="#D0CCC4" rx="2"/>
+          <line x1="90" y1="50" x2="90" y2="75" stroke="white" stroke-width="2" stroke-dasharray="6,4"/>
+          <!-- Barrier -->
+          <rect x="115" y="35" width="55" height="8" rx="3" fill="#E53030"/>
+          <line x1="115" y1="39" x2="170" y2="39" stroke="white" stroke-width="2" stroke-dasharray="5,4"/>
+          <!-- Agent -->
+          <circle cx="70" cy="38" r="7" fill="#1B4D8E"/>
+          <line x1="70" y1="45" x2="70" y2="58" stroke="#1B4D8E" stroke-width="2.5"/>
+          <line x1="55" y1="50" x2="85" y2="50" stroke="#1B4D8E" stroke-width="2.5"/>
+          <!-- Arrow car -->
+          <rect x="15" y="50" width="22" height="14" rx="2" fill="#4A90D9"/>
+          <text x="26" y="60" text-anchor="middle" font-size="7" fill="white">→</text>
+          <!-- X mark over barrier path -->
+          <text x="140" y="32" font-size="11" fill="#E53030">✓</text>
+          <text x="84" y="32" font-size="9" fill="white" font-weight="bold">AGT</text>
+        </svg>
+        <div style="font-size:.78rem;line-height:1.5;color:var(--tx2)">El agente autoriza el paso aunque haya balizamiento que lo prohiba. El agente <strong>siempre prevalece</strong>.<br><em style="font-size:.72rem">Officer overrides the barrier.</em></div>
+      </div>
+      <div class="card" style="padding:.85rem">
+        <div style="font-size:.72rem;font-weight:700;color:var(--ac);letter-spacing:.07em;margin-bottom:.4rem;text-transform:uppercase">Ejemplo 2 · Example 2</div>
+        <svg viewBox="0 0 180 90" class="illus" style="height:70px;margin-bottom:.5rem">
+          <!-- Road -->
+          <rect x="0" y="45" width="180" height="30" fill="#D0CCC4" rx="2"/>
+          <line x1="90" y1="50" x2="90" y2="75" stroke="white" stroke-width="2" stroke-dasharray="6,4"/>
+          <!-- STOP marking on road -->
+          <text x="40" y="68" font-size="7" fill="white" font-weight="bold">STOP</text>
+          <!-- Traffic light - GREEN -->
+          <rect x="130" y="25" width="16" height="38" rx="3" fill="#333"/>
+          <circle cx="138" cy="33" r="5" fill="#555"/>
+          <circle cx="138" cy="44" r="5" fill="#555"/>
+          <circle cx="138" cy="55" r="5" fill="#2DC653"/>
+          <!-- Car -->
+          <rect x="15" y="50" width="22" height="14" rx="2" fill="#4A90D9"/>
+          <!-- Green check -->
+          <text x="150" y="60" font-size="13" fill="#2DC653">✓</text>
+        </svg>
+        <div style="font-size:.78rem;line-height:1.5;color:var(--tx2)">Hay STOP en el pavimento pero el semáforo está en verde. El conductor <strong>pasa sin detenerse</strong> — el semáforo (3º) prevalece sobre la marca vial (5º).<br><em style="font-size:.72rem">Green light overrides STOP road marking.</em></div>
+      </div>
+      <div class="card" style="padding:.85rem">
+        <div style="font-size:.72rem;font-weight:700;color:var(--te);letter-spacing:.07em;margin-bottom:.4rem;text-transform:uppercase">Ejemplo 3 · Example 3</div>
+        <svg viewBox="0 0 180 90" class="illus" style="height:70px;margin-bottom:.5rem">
+          <!-- Road -->
+          <rect x="0" y="45" width="180" height="30" fill="#D0CCC4" rx="2"/>
+          <line x1="90" y1="50" x2="90" y2="75" stroke="white" stroke-width="2" stroke-dasharray="6,4"/>
+          <!-- Ceda sign vertical -->
+          <polygon points="130,28 155,28 142,50" fill="white" stroke="#E53030" stroke-width="3"/>
+          <!-- STOP road marking -->
+          <text x="38" y="68" font-size="7" fill="white" font-weight="bold">STOP</text>
+          <!-- Car -->
+          <rect x="8" y="50" width="22" height="14" rx="2" fill="#E8C547"/>
+          <!-- Arrow: must stop at STOP line but... -->
+          <text x="105" y="65" font-size="8" fill="#E53030" font-weight="bold">CEDE</text>
+        </svg>
+        <div style="font-size:.78rem;line-height:1.5;color:var(--tx2)">Señal vertical de CEDA EL PASO (4º) prevalece sobre marca vial STOP (5º). El conductor cede el paso <strong>sin detenerse necesariamente</strong>.<br><em style="font-size:.72rem">Vertical "give way" beats road STOP marking.</em></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       2. AGENT SIGNALS
+  ═══════════════════════════════════ -->
+  <div class="section">
+    <div class="sec-title">2. Señales de los agentes <span class="sec-en">· Traffic officer signals</span></div>
+
+    <p style="font-size:.85rem;color:var(--tx2);margin-bottom:.8rem;line-height:1.65">Officers must be easily recognisable at a distance, day and night. Their signals must be visible and obeyed <strong>immediately</strong>. Three core arm positions plus whistle signals.</p>
+
+    <div class="g2" style="margin-bottom:.7rem">
+      <!-- Arm up -->
+      <div class="card">
+        <div style="display:flex;gap:.85rem;align-items:flex-start">
+          <svg viewBox="0 0 60 80" width="52" height="70" style="flex-shrink:0">
+            <circle cx="30" cy="12" r="8" fill="#1B4D8E"/>
+            <line x1="30" y1="20" x2="30" y2="50" stroke="#1B4D8E" stroke-width="4"/>
+            <line x1="12" y1="35" x2="48" y2="35" stroke="#1B4D8E" stroke-width="4"/>
+            <line x1="30" y1="50" x2="20" y2="70" stroke="#1B4D8E" stroke-width="3.5"/>
+            <line x1="30" y1="50" x2="40" y2="70" stroke="#1B4D8E" stroke-width="3.5"/>
+            <!-- Arm raised -->
+            <line x1="48" y1="35" x2="48" y2="15" stroke="#1B4D8E" stroke-width="4"/>
+            <rect x="43" y="10" width="10" height="6" rx="2" fill="#1B4D8E"/>
+          </svg>
+          <div>
+            <div style="font-weight:600;font-size:.88rem;margin-bottom:.2rem">Brazo levantado verticalmente</div>
+            <div style="font-size:.75rem;color:var(--tx3);font-style:italic;margin-bottom:.35rem">Arm raised vertically</div>
+            <div style="font-size:.82rem;color:var(--tx2);line-height:1.55">Deben detenerse <strong>todos los usuarios</strong> que se acerquen por delante, por detrás y por los laterales.<br>Si se hace en una intersección, <strong>no obliga a detenerse</strong> a los que ya están dentro de ella.<br><em style="font-size:.74rem">All approaching users must stop. Doesn't stop those already inside the junction.</em></div>
+          </div>
+        </div>
+      </div>
+      <!-- Arm(s) extended horizontal -->
+      <div class="card">
+        <div style="display:flex;gap:.85rem;align-items:flex-start">
+          <svg viewBox="0 0 60 80" width="52" height="70" style="flex-shrink:0">
+            <circle cx="30" cy="12" r="8" fill="#B03030"/>
+            <line x1="30" y1="20" x2="30" y2="50" stroke="#B03030" stroke-width="4"/>
+            <line x1="8" y1="35" x2="52" y2="35" stroke="#B03030" stroke-width="4"/>
+            <line x1="30" y1="50" x2="20" y2="70" stroke="#B03030" stroke-width="3.5"/>
+            <line x1="30" y1="50" x2="40" y2="70" stroke="#B03030" stroke-width="3.5"/>
+          </svg>
+          <div>
+            <div style="font-weight:600;font-size:.88rem;margin-bottom:.2rem">Brazo(s) extendidos horizontalmente</div>
+            <div style="font-size:.75rem;color:var(--tx3);font-style:italic;margin-bottom:.35rem">Arm(s) extended horizontally</div>
+            <div style="font-size:.82rem;color:var(--tx2);line-height:1.55">Deben detenerse los usuarios que se acerquen <strong>por la espalda y de frente</strong> del agente (los que cortan la línea del brazo extendido).<br>La señal permanece en vigor <strong>aunque el agente baje el brazo</strong>, salvo que cambie de posición.<br><em style="font-size:.74rem">Stops those in front of and behind the officer. Stays active even after arm is lowered.</em></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="g2">
+      <div class="card" style="font-size:.83rem;line-height:1.6">
+        <div style="font-weight:600;margin-bottom:.25rem">Brazo en movimiento de arriba abajo</div>
+        <div style="font-size:.73rem;color:var(--tx3);font-style:italic;margin-bottom:.3rem">Arm moving downward</div>
+        Obliga a <strong>disminuir la velocidad</strong> a los conductores que se acercan por el lado del brazo que ejecuta la señal.
+        <em style="font-size:.73rem;display:block;margin-top:3px;color:var(--tx3)">Slow down — applies to drivers on the side of the moving arm.</em>
+      </div>
+      <div class="card" style="font-size:.83rem;line-height:1.6">
+        <div style="font-weight:600;margin-bottom:.25rem">Señales desde vehículo policial</div>
+        <div style="font-size:.73rem;color:var(--tx3);font-style:italic;margin-bottom:.3rem">Signals from a police vehicle</div>
+        <strong>Luz roja intermitente hacia adelante</strong>: el conductor del vehículo que precede al policial debe detenerse en el <span class="hl">lado derecho</span>, delante del vehículo policial, siguiendo las instrucciones de la megafonía.
+        <em style="font-size:.73rem;display:block;margin-top:3px;color:var(--tx3)">Flashing red light from police car = pull over to the right, ahead of police vehicle.</em>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:.5rem;font-size:.83rem;line-height:1.7">
+      <strong>Señales de silbato · Whistle signals:</strong><br>
+      Toques <span class="hl">cortos y frecuentes</span> → detención del vehículo. <em style="font-size:.75rem;color:var(--tx3)">Short, frequent blasts = stop.</em><br>
+      Un toque <span class="hl">largo</span> → reanudación de la marcha. <em style="font-size:.75rem;color:var(--tx3)">One long blast = move on.</em><br><br>
+      <strong>Otras personas que pueden hacer señales:</strong> personal de obras (con paleta), patrullas escolares (señal de STOP en paleta).
+    </div>
+
+    <div class="card" style="margin-top:.5rem">
+      <div style="font-weight:600;font-size:.88rem;margin-bottom:.4rem">Banderas · Flags from vehicles</div>
+      <div class="g3">
+        <div style="font-size:.82rem;line-height:1.6"><span style="display:inline-block;background:#E53030;color:white;padding:1px 8px;border-radius:3px;font-size:.75rem;font-weight:600;margin-bottom:4px">ROJA</span><br>Calzada <strong>temporalmente cerrada</strong> a partir del vehículo portador, excepto vehículos escoltados por agentes.<br><em style="font-size:.73rem;color:var(--tx3)">Road closed from this vehicle onwards.</em></div>
+        <div style="font-size:.82rem;line-height:1.6"><span style="display:inline-block;background:#2DC653;color:white;padding:1px 8px;border-radius:3px;font-size:.75rem;font-weight:600;margin-bottom:4px">VERDE</span><br>Calzada <strong>de nuevo abierta</strong> al tráfico a partir del vehículo portador.<br><em style="font-size:.73rem;color:var(--tx3)">Road open again from this vehicle onwards.</em></div>
+        <div style="font-size:.82rem;line-height:1.6"><span style="display:inline-block;background:#E8C547;color:#5A4008;padding:1px 8px;border-radius:3px;font-size:.75rem;font-weight:600;margin-bottom:4px">AMARILLA</span><br>Necesidad de <strong>extremar la atención</strong> o proximidad de un peligro.<br><em style="font-size:.73rem;color:var(--tx3)">Heightened attention / danger ahead.</em></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       3. TRAFFIC LIGHTS
+  ═══════════════════════════════════ -->
+  <div class="section">
+    <div class="sec-title">3. Semáforos <span class="sec-en">· Traffic lights</span></div>
+
+    <p style="font-size:.85rem;color:var(--tx2);margin-bottom:.8rem;line-height:1.65">Traffic lights rank 3rd in the priority order. Many exam questions focus on the <strong>exact meaning of each colour</strong>, the special arrow rules, and semáforos de carril (lane-control signals).</p>
+
+    <!-- Main traffic light colours -->
+    <div style="font-size:.78rem;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.45rem">Semáforos circulares para vehículos · Standard vehicle traffic lights</div>
+    <div class="tlight-grid" style="margin-bottom:.85rem">
+      <div class="tlight-card">
+        <div class="tlight-dot" style="background:#2DC653"></div>
+        <div class="tlight-body">
+          <div class="tlight-name">Luz verde fija · Green</div>
+          <div class="tlight-desc">Paso permitido <strong>con prioridad</strong>, salvo que al hacerlo el vehículo pueda quedar detenido obstruyendo la circulación transversal.</div>
+          <div class="tlight-en">You may proceed with priority, unless doing so would block cross traffic.</div>
+        </div>
+      </div>
+      <div class="tlight-card">
+        <div class="tlight-dot" style="background:#E8C547"></div>
+        <div class="tlight-body">
+          <div class="tlight-name">Luz amarilla fija · Amber</div>
+          <div class="tlight-desc">Deben <strong>detenerse como si fuera roja</strong>, salvo que el vehículo esté tan cerca del semáforo que no pueda detenerse con seguridad.</div>
+          <div class="tlight-en">Stop as if red, unless you're so close you can't safely stop.</div>
+        </div>
+      </div>
+      <div class="tlight-card">
+        <div class="tlight-dot" style="background:#E53030"></div>
+        <div class="tlight-body">
+          <div class="tlight-name">Luz roja fija · Red</div>
+          <div class="tlight-desc">Prohíbe el paso. Detenerse sin rebasar el semáforo ni la línea de detención. Si el semáforo está <em>dentro o al otro lado</em> de la intersección → detenerse antes de la intersección.</div>
+          <div class="tlight-en">Stop before the stop line, or before the intersection if the light is inside/beyond it.</div>
+        </div>
+      </div>
+      <div class="tlight-card">
+        <div class="tlight-dot" style="background:#E8C547;border:2px dashed #C9A020"></div>
+        <div class="tlight-body">
+          <div class="tlight-name">Amarilla intermitente · Flashing amber</div>
+          <div class="tlight-desc">Circular con <strong>precaución</strong>, cediendo el paso si necesario a los vehículos que se aproximen (desde la derecha y la izquierda). Respetar señales de stop si las hay.</div>
+          <div class="tlight-en">Proceed with caution; yield if needed; still obey any STOP signs present.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Arrows on traffic lights -->
+    <div style="font-size:.78rem;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.45rem">Flechas en semáforos · Traffic light arrows</div>
+    <table class="tbl" style="margin-bottom:.75rem">
+      <thead><tr><th>Señal / Signal</th><th>Significado / Meaning</th><th>Exam detail</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="badge b-re">Flecha negra sobre fondo rojo</span></td>
+          <td>No cambia el significado del rojo — prohíbe el paso, <strong>limitado al movimiento indicado</strong> por la flecha.</td>
+          <td>Cannot make that specific turn even though other movements may be free.</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-am">Flecha negra sobre fondo amarillo</span></td>
+          <td>No cambia el significado del amarillo — puede girar en la dirección indicada <strong>cediendo el paso</strong>. No está obligado a hacerlo.</td>
+          <td>May turn in that direction (yielding); not compelled to.</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-gn">Flecha verde sobre fondo negro</span></td>
+          <td>Los vehículos <strong>pueden</strong> tomar esa dirección cualquiera que sea la luz simultánea. Si el carril está reservado exclusivamente para esa dirección, <strong>deben</strong> avanzar si hay vehículos detrás.</td>
+          <td>Green arrow on black = can go regardless of other lights. Must go if in dedicated lane with vehicles behind.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Lane-control signals -->
+    <div style="font-size:.78rem;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.45rem">Semáforos de carril (cuadrados) · Lane-control signals</div>
+    <div class="g2" style="margin-bottom:.75rem">
+      <div class="card" style="font-size:.83rem;line-height:1.6">
+        <span class="hl-re" style="font-size:.85rem">✕ Aspa roja</span><br><br>
+        No se puede ocupar el carril sobre el que se encuentra. Si el vehículo ya ocupa ese carril, <strong>debe abandonarlo lo más pronto posible</strong> (incluso si eso implica pasar bajo el aspa).
+        <em style="font-size:.74rem;display:block;margin-top:4px;color:var(--tx3)">Red X = cannot use this lane. If already in it, exit as soon as possible.</em>
+      </div>
+      <div class="card" style="font-size:.83rem;line-height:1.6">
+        <span class="hl-gn" style="font-size:.85rem">↓ Flecha verde</span><br><br>
+        Se puede circular por ese carril. Las flechas verdes <strong>no prevalecen sobre ninguna señal</strong> — los vehículos en estos carriles siguen obedeciendo las señales que encuentren en ellos y, en defecto de señal, ceden el paso a la derecha.
+        <em style="font-size:.74rem;display:block;margin-top:4px;color:var(--tx3)">Green arrow = may use this lane. Still must obey any signs in that lane.</em>
+      </div>
+    </div>
+
+    <!-- Pedestrian + special -->
+    <div style="font-size:.78rem;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.45rem">Semáforos especiales · Special traffic lights</div>
+    <div class="g2">
+      <div class="card" style="font-size:.82rem;line-height:1.65">
+        <div style="font-weight:600;margin-bottom:.25rem">Semáforos para peatones</div>
+        <div style="font-size:.74rem;color:var(--tx3);font-style:italic;margin-bottom:.3rem">Pedestrian signals</div>
+        <span class="hl-re">Peatón inmóvil (rojo)</span> → no cruzar.<br>
+        <span class="hl-gn">Peatón en marcha (verde)</span> → puede cruzar.<br>
+        <span class="hl-am">Peatón verde intermitente</span> → queda poco tiempo; terminar de cruzar.<br>
+        <em style="font-size:.73rem;color:var(--tx3)">Flashing green = almost out of time, finish crossing.</em>
+      </div>
+      <div class="card" style="font-size:.82rem;line-height:1.65">
+        <div style="font-weight:600;margin-bottom:.25rem">Semáforos reservados a ciclos</div>
+        <div style="font-size:.74rem;color:var(--tx3);font-style:italic;margin-bottom:.3rem">Cycle traffic lights (2025 update)</div>
+        Cuando las luces presentan la <strong>silueta iluminada de un ciclo</strong>, sus indicaciones se refieren exclusivamente a ellos.
+        <div style="margin-top:.5rem;font-weight:600">Semáforos para tranvías/autobuses</div>
+        Franja blanca: horizontal = prohibido paso; vertical = paso de frente; oblicua izq/dch = girar en esa dirección; intermitente = como amarillo fijo.
+        <em style="font-size:.73rem;display:block;margin-top:3px;color:var(--tx3)">White stripe signals: horizontal = red; vertical = straight; diagonal = turn; flashing = yield.</em>
+      </div>
+    </div>
+
+    <!-- White/oblique stripe table -->
+    <div class="card" style="margin-top:.6rem">
+      <div style="font-weight:600;font-size:.88rem;margin-bottom:.5rem">Franjas blancas en semáforos de tranvías/autobuses · White stripe signals</div>
+      <table class="tbl">
+        <thead><tr><th>Franja / Stripe</th><th>Significado / Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Horizontal</strong></td><td>Prohíbe el paso (= luz roja fija) · Prohibits passage (= red)</td></tr>
+          <tr><td><strong>Vertical</strong></td><td>Permite el paso de frente · Permits straight ahead</td></tr>
+          <tr><td><strong>Oblicua a la izquierda</strong></td><td>Girar a la izquierda autorizado · Left turn permitted</td></tr>
+          <tr><td><strong>Oblicua a la derecha</strong></td><td>Girar a la derecha autorizado · Right turn permitted</td></tr>
+          <tr><td><strong>Vertical u oblicua intermitente</strong></td><td>Detenerse como ante amarillo fijo · Stop as for fixed amber</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Captafaro horizontal luminoso -->
+    <div class="card" style="margin-top:.6rem;font-size:.82rem;line-height:1.65">
+      <div style="font-weight:600;margin-bottom:.3rem">Baliza/captafaro horizontal luminoso · Luminous horizontal road beacon</div>
+      <div style="font-size:.74rem;color:var(--tx3);font-style:italic;margin-bottom:.35rem">Placed on the carriageway</div>
+      Puede emitir luz de tres colores: <span class="hl-gn">verde</span> (el único <strong>franqueable</strong>), <span class="hl-am">naranja</span> (precaución), <span class="hl-re">rojo</span> (no pasar). Se usa para delimitar carriles, orientar en desvíos, delimitar zonas de incorporación o restringir cambios de carril.
+      <em style="font-size:.73rem;display:block;margin-top:3px;color:var(--tx3)">Green = passable. Orange/red = do not cross. Used for lane management.</em>
+    </div>
+
+    <div class="trap" style="margin-top:.6rem">
+      <div class="trap-lbl">⚠ Exam trap — amber light rule</div>
+      <p>Amber means stop <strong>as if red</strong> — but you don't have to stop if you are so close that stopping would be dangerous. The exam gives you a scenario and asks whether you stop or go. The answer depends on proximity, not choice.</p>
+      <span class="en">Amber = stop unless dangerously close to the line. Not a free choice.</span>
+    </div>
+
+    <!-- Traffic levels (from image 4) -->
+    <div style="margin-top:.85rem">
+      <div style="font-size:.78rem;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.45rem">Paneles de mensaje variable — niveles de tráfico · Variable message panels — traffic levels</div>
+      <div class="card" style="padding:0;overflow:hidden">
+        <div class="level-row"><div class="level-dot" style="background:white;border:1px solid var(--bd);color:var(--tx2);font-size:.65rem">BLA</div><div class="level-body"><div class="level-es">Blanco</div><div class="level-en">Normal, fluid traffic — circulación normal y fluida</div></div></div>
+        <div class="level-row"><div class="level-dot" style="background:#2DC653;color:white">VER</div><div class="level-body"><div class="level-es">Verde</div><div class="level-en">Traffic conditioned by other vehicles — can't reach max road speed</div></div></div>
+        <div class="level-row"><div class="level-dot" style="background:#E8C547;color:#5A4008">AMA</div><div class="level-body"><div class="level-es">Amarillo</div><div class="level-en">Heavy traffic with intermittent hold-ups and sporadic stops</div></div></div>
+        <div class="level-row"><div class="level-dot" style="background:#E53030;color:white">ROJ</div><div class="level-body"><div class="level-es">Rojo</div><div class="level-en">Difficult, very heavy traffic with frequent prolonged stops</div></div></div>
+        <div class="level-row" style="border:none"><div class="level-dot" style="background:#1C1C1C;color:white">NEG</div><div class="level-body"><div class="level-es">Negro</div><div class="level-en">Traffic interrupted by unknown causes (accident, snow, etc.)</div></div></div>
+      </div>
+      <div class="co co-bl" style="margin-top:.5rem;font-size:.82rem">Los paneles de mensaje variable prevalecen sobre las demás señales verticales y marcas viales (son señalización circunstancial = 2º rango). · Variable message panels rank 2nd — they override vertical signs and road markings.</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       4. VERTICAL SIGNS — SHAPES & COLOURS
+  ═══════════════════════════════════ -->
+  <div class="section">
+    <div class="sec-title">4. Señales verticales — formas y colores <span class="sec-en">· Vertical signs — shapes &amp; colours</span></div>
+
+    <p style="font-size:.85rem;color:var(--tx2);margin-bottom:.8rem;line-height:1.65">The shape and colour of a vertical sign tells you its category instantly. This is tested constantly — know the shape → category mapping by heart.</p>
+
+    <div class="shape-grid" style="margin-bottom:.85rem">
+      <div class="shape-card">
+        <div class="shape-icon">
+          <svg viewBox="0 0 42 42" width="42" height="42">
+            <polygon points="21,3 39,36 3,36" fill="white" stroke="#E53030" stroke-width="3.5"/>
+            <text x="21" y="29" text-anchor="middle" font-size="13" fill="#E53030">!</text>
+          </svg>
+        </div>
+        <div class="shape-body">
+          <div class="name">Triángulo rojo</div>
+          <div class="en">Red triangle</div>
+          <div class="eg">Advertencia de peligro · Danger warning (P-series)</div>
+        </div>
+      </div>
+      <div class="shape-card">
+        <div class="shape-icon">
+          <svg viewBox="0 0 42 42" width="42" height="42">
+            <circle cx="21" cy="21" r="18" fill="white" stroke="#E53030" stroke-width="3.5"/>
+            <line x1="8" y1="8" x2="34" y2="34" stroke="#E53030" stroke-width="2.5"/>
+          </svg>
+        </div>
+        <div class="shape-body">
+          <div class="name">Círculo rojo</div>
+          <div class="en">Red circle</div>
+          <div class="eg">Prohibición · Prohibition (R-1 to R-4xx)</div>
+        </div>
+      </div>
+      <div class="shape-card">
+        <div class="shape-icon">
+          <svg viewBox="0 0 42 42" width="42" height="42">
+            <circle cx="21" cy="21" r="18" fill="#1B4D8E"/>
+          </svg>
+        </div>
+        <div class="shape-body">
+          <div class="name">Círculo azul</div>
+          <div class="en">Blue circle</div>
+          <div class="eg">Obligación · Obligation / mandatory (R-4xx+)</div>
+        </div>
+      </div>
+      <div class="shape-card">
+        <div class="shape-icon">
+          <svg viewBox="0 0 42 42" width="42" height="42">
+            <polygon points="21,3 3,39 39,39" fill="white" stroke="#E53030" stroke-width="3.5"/>
+          </svg>
+        </div>
+        <div class="shape-body">
+          <div class="name">Triángulo invertido rojo</div>
+          <div class="en">Inverted red triangle</div>
+          <div class="eg">Ceda el paso · Give way (R-1)</div>
+        </div>
+      </div>
+      <div class="shape-card">
+        <div class="shape-icon">
+          <svg viewBox="0 0 42 42" width="42" height="42">
+            <polygon points="21,3 39,21 21,39 3,21" fill="white" stroke="#E53030" stroke-width="3"/>
+            <text x="21" y="25" text-anchor="middle" font-size="7" fill="#E53030" font-weight="bold">STOP</text>
+          </svg>
+        </div>
+        <div class="shape-body">
+          <div class="name">Octógono rojo</div>
+          <div class="en">Red octagon</div>
+          <div class="eg">Stop obligatorio · Mandatory stop (R-2)</div>
+        </div>
+      </div>
+      <div class="shape-card">
+        <div class="shape-icon">
+          <svg viewBox="0 0 42 42" width="42" height="42">
+            <rect x="3" y="3" width="36" height="36" rx="5" fill="#1B4D8E"/>
+            <text x="21" y="27" text-anchor="middle" font-size="16" fill="white">↑</text>
+          </svg>
+        </div>
+        <div class="shape-body">
+          <div class="name">Cuadrado/rectángulo azul</div>
+          <div class="en">Blue square/rectangle</div>
+          <div class="eg">Indicación general · General information (S-series)</div>
+        </div>
+      </div>
+      <div class="shape-card">
+        <div class="shape-icon">
+          <svg viewBox="0 0 42 42" width="42" height="42">
+            <rect x="3" y="10" width="36" height="22" rx="3" fill="#2DC653"/>
+            <text x="21" y="25" text-anchor="middle" font-size="9" fill="white" font-weight="bold">HARO →</text>
+          </svg>
+        </div>
+        <div class="shape-body">
+          <div class="name">Rectángulo verde</div>
+          <div class="en">Green rectangle</div>
+          <div class="eg">Preseñalización / dirección en autopista · Motorway direction</div>
+        </div>
+      </div>
+      <div class="shape-card">
+        <div class="shape-icon">
+          <svg viewBox="0 0 42 42" width="42" height="42">
+            <rect x="3" y="10" width="36" height="22" rx="3" fill="#D4A020"/>
+            <text x="21" y="25" text-anchor="middle" font-size="9" fill="white" font-weight="bold">DESVÍO</text>
+          </svg>
+        </div>
+        <div class="shape-body">
+          <div class="name">Fondo amarillo</div>
+          <div class="en">Yellow/amber background</div>
+          <div class="eg">Señales de obras · Construction zone signs</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key vertical signs tested -->
+    <div style="font-size:.78rem;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.45rem">Señales de prioridad clave · Key priority signs</div>
+    <table class="tbl" style="margin-bottom:.75rem">
+      <thead><tr><th>Código</th><th>Nombre ES</th><th>English</th><th>Dato clave</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="badge b-re">R-1</span></td>
+          <td>Ceda el paso</td>
+          <td>Give way</td>
+          <td>No es necesario detenerse, sólo ceder el paso. <span class="tbl-note">You don't have to stop — just yield.</span></td>
+        </tr>
+        <tr>
+          <td><span class="badge b-re">R-2</span></td>
+          <td>Detención obligatoria (STOP)</td>
+          <td>Mandatory stop</td>
+          <td>Detenerse siempre antes de la línea/intersección. Si sin visibilidad suficiente, detenerse de nuevo en posición con visibilidad. <span class="tbl-note">Must stop — and again if first stop has no visibility.</span></td>
+        </tr>
+        <tr>
+          <td><span class="badge b-re">R-3</span></td>
+          <td>Prioridad al sentido contrario</td>
+          <td>Give way to oncoming traffic</td>
+          <td>En tramos estrechos, ceder paso a los que vienen en sentido contrario.</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-bl">R-4</span></td>
+          <td>Prioridad sobre el sentido contrario</td>
+          <td>Priority over oncoming traffic</td>
+          <td>Tienes prioridad en el tramo estrecho.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="trap">
+      <div class="trap-lbl">⚠ Exam trap — STOP vs ceda el paso</div>
+      <p>STOP (R-2) requires a <strong>complete stop</strong> even if the road is clear. Ceda el paso (R-1) only requires yielding — you don't have to stop if the way is free. The exam specifically tests whether you know STOP is always a full stop.</p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       5. VERTICAL SIGNS — 2025 NEW/UPDATED
+  ═══════════════════════════════════ -->
+  <div class="section">
+    <div class="sec-title">5. Señales verticales — novedades 2025 <span class="sec-en">· New &amp; updated signs — 2025 supplement</span></div>
+
+    <div class="co co-am" style="margin-bottom:.85rem;font-size:.83rem">
+      <strong>⚠ Importante:</strong> The 2025 supplement (Matferline PDF) updates many sign codes and introduces new categories, especially for e-mobility, cyclists, and environmental restrictions. These are <strong>highly likely to appear</strong> in current exams.
+    </div>
+
+    <!-- Danger warnings P -->
+    <div style="font-size:.78rem;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.45rem">Señales de advertencia de peligro — novedades · Danger warning signs — new</div>
+    <div class="card" style="padding:.75rem 1rem;margin-bottom:.75rem">
+      <div class="sig-row">
+        <span class="sig-code">P-1e</span>
+        <div class="sig-body">
+          <div class="sig-name">Tramo con accesos directos</div>
+          <div class="sig-desc">Peligro por proximidad de tramo con varios accesos directos a la vía — los usuarios de esos accesos deben ceder el paso.</div>
+          <div class="sig-en">Section with multiple direct road accesses — users entering must give way.</div>
+        </div>
+      </div>
+      <div class="sig-row">
+        <span class="sig-code">P-4</span>
+        <div class="sig-body">
+          <div class="sig-name">Glorieta</div>
+          <div class="sig-desc">Peligro por proximidad de una glorieta con circulación en el sentido indicado por las flechas.</div>
+          <div class="sig-en">Roundabout ahead — traffic flows in direction shown by arrows.</div>
+        </div>
+      </div>
+      <div class="sig-row">
+        <span class="sig-code">P-20c</span>
+        <div class="sig-body">
+          <div class="sig-name">Pasos para peatones y ciclistas</div>
+          <div class="sig-desc">Peligro por proximidad de un paso para peatones <strong>adosado o compartido</strong> con un paso para ciclistas.</div>
+          <div class="sig-en">Combined or adjacent pedestrian and cyclist crossing ahead.</div>
+        </div>
+      </div>
+      <div class="sig-row">
+        <span class="sig-code">P-21b</span>
+        <div class="sig-body">
+          <div class="sig-name">Personas con dificultades motrices</div>
+          <div class="sig-desc">Peligro por proximidad de lugar frecuentado por personas con dificultades motrices o sensoriales.</div>
+          <div class="sig-en">Area frequently used by people with physical or sensory impairments.</div>
+        </div>
+      </div>
+      <div class="sig-row">
+        <span class="sig-code">P-24a</span>
+        <div class="sig-body">
+          <div class="sig-name">Paso de animales en libertad (jabalíes)</div>
+          <div class="sig-desc">Peligro por cruce frecuente de animales en libertad, <strong>en proporción muy significativa jabalíes</strong>.</div>
+          <div class="sig-en">Wild animals crossing — predominantly wild boar.</div>
+          <span class="sig-trap">⚠ Exam: the sign specifically references jabalíes (wild boar) — not generic animals.</span>
+        </div>
+      </div>
+      <div class="sig-row">
+        <span class="sig-code">P-33</span>
+        <div class="sig-body">
+          <div class="sig-name">Visibilidad reducida</div>
+          <div class="sig-desc">Peligro por tramo con pérdida notable de visibilidad debida a <strong>niebla, lluvia, nieve, humos</strong>, etc.</div>
+          <div class="sig-en">Reduced visibility section — fog, rain, snow, smoke etc.</div>
+        </div>
+      </div>
+      <div class="sig-row" style="border:none">
+        <span class="sig-code">P-35</span>
+        <div class="sig-body">
+          <div class="sig-name">Trenzado</div>
+          <div class="sig-desc">Peligro por tramo entre una confluencia y una bifurcación donde los vehículos realizan cambios de carril cruzados, aumentando el riesgo de colisión.</div>
+          <div class="sig-en">Weave section between a merge and a diverge — crossed lane-changing increases collision risk.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Prohibition signs R - new -->
+    <div style="font-size:.78rem;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.45rem">Señales de prohibición de entrada — novedades · Entry prohibition signs — new</div>
+    <div class="card" style="padding:.75rem 1rem;margin-bottom:.75rem">
+      <div class="sig-row">
+        <span class="sig-code">R-103</span>
+        <div class="sig-body">
+          <div class="sig-name">Entrada prohibida vehículos de motor, excepto motocicletas de 2 ruedas</div>
+          <div class="sig-desc">No prohíbe motocicletas de 2 ruedas ni vehículos de 3 ruedas asimilados a motocicletas.</div>
+          <div class="sig-en">Prohibits motor vehicles but allows 2-wheel motorcycles and 3-wheel equivalents.</div>
+          <span class="sig-trap">⚠ Exam: bikes can still enter under R-103.</span>
+        </div>
+      </div>
+      <div class="sig-row">
+        <span class="sig-code">R-104</span>
+        <div class="sig-body">
+          <div class="sig-name">Entrada prohibida a motocicletas</div>
+          <div class="sig-desc">Prohíbe motocicletas y vehículos de <strong>tres ruedas asimilados</strong> a motocicletas.</div>
+          <div class="sig-en">Prohibits motorcycles and 3-wheel motorcycle equivalents.</div>
+        </div>
+      </div>
+      <div class="sig-row">
+        <span class="sig-code">R-105</span>
+        <div class="sig-body">
+          <div class="sig-name">Entrada prohibida a ciclomotores</div>
+          <div class="sig-desc">También prohíbe la entrada a vehículos para <strong>personas de movilidad reducida</strong>.</div>
+          <div class="sig-en">Prohibits mopeds AND vehicles for people with reduced mobility.</div>
+          <span class="sig-trap">⚠ R-105 also bans PMR vehicles — often tested.</span>
+        </div>
+      </div>
+      <div class="sig-row">
+        <span class="sig-code">R-106</span>
+        <div class="sig-body">
+          <div class="sig-name">Entrada prohibida a vehículos de transporte de mercancías</div>
+          <div class="sig-desc">Camiones, tractocamiones y furgones/furgonetas, <strong>independientemente de su masa</strong>.</div>
+          <div class="sig-en">All goods vehicles regardless of weight — trucks, tractor units and vans.</div>
+        </div>
+      </div>
+      <div class="sig-row">
+        <span class="sig-code">R-110</span>
+        <div class="sig-body">
+          <div class="sig-name">Entrada prohibida a vehículos que transporten productos contaminantes del agua</div>
+          <div class="sig-desc">Vehículos que transporten más de <span class="hl">1.000 litros</span> de productos capaces de contaminar el agua.</div>
+          <div class="sig-en">Vehicles carrying more than 1,000 litres of water-polluting products.</div>
+          <span class="sig-trap">⚠ 1,000 litre threshold is exact exam detail.</span>
+        </div>
+      </div>
+      <div class="sig-row">
+        <span class="sig-code">R-118</span>
+        <div class="sig-body">
+          <div class="sig-name">Entrada prohibida a vehículos de movilidad personal (VMP)</div>
+          <div class="sig-desc"><strong>Nueva señal.</strong> Prohibición de acceso a vehículos de movilidad personal (e-scooters, etc.).</div>
+          <div class="sig-en">New sign. Prohibits personal mobility vehicles (e-scooters etc.).</div>
+          <span class="sig-trap">⚠ New in 2025 — VMP ban sign. Likely to appear in exam.</span>
+        </div>
+      </div>
+      <div class="sig-row" style="border:none">
+        <span class="sig-code">R-120</span>
+        <div class="sig-body">
+          <div class="sig-name">Entrada prohibida en función del distintivo ambiental</div>
+          <div class="sig-desc"><strong>Nueva señal.</strong> Prohíbe el acceso a vehículos según su distintivo ambiental DGT u otros criterios. Las condiciones se especifican en panel complementario S-860.</div>
+          <div class="sig-en">New sign. Bans vehicles by environmental label. Conditions specified in supplementary panel.</div>
+          <span class="sig-trap">⚠ New in 2025 — environmental zone restriction. Very topical.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Restriction signs R -->
+    <div style="font-size:.78rem;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.45rem">Otras señales de prohibición/restricción clave · Key restriction signs</div>
+    <div class="card" style="padding:.75rem 1rem;margin-bottom:.75rem">
+      <div class="sig-row">
+        <span class="sig-code">R-300</span>
+        <div class="sig-body">
+          <div class="sig-name">Separación mínima</div>
+          <div class="sig-desc">Prohibición de circular sin mantener la separación indicada con el vehículo precedente, <strong>excepto en adelantamiento</strong>.</div>
+          <div class="sig-en">Minimum following distance required — except during overtaking manoeuvre.</div>
+        </div>
+      </div>
+      <div class="sig-row">
+        <span class="sig-code">R-305</span>
+        <div class="sig-body">
+          <div class="sig-name">Adelantamiento prohibido</div>
+          <div class="sig-desc">Prohíbe adelantar cuando la maniobra <strong>implique invadir el sentido contrario</strong>. Vigente hasta señal de fin de prohibición o fin de prohibiciones.</div>
+          <div class="sig-en">No overtaking when it would involve crossing into oncoming lane.</div>
+        </div>
+      </div>
+      <div class="sig-row">
+        <span class="sig-code">R-306</span>
+        <div class="sig-body">
+          <div class="sig-name">Adelantamiento prohibido para camiones (&gt;3.500 kg)</div>
+          <div class="sig-desc">Prohíbe adelantar a los camiones MMA &gt;3.500 kg, <strong>incluso cuando no implique invadir el sentido contrario</strong>.</div>
+          <div class="sig-en">Trucks (>3,500 kg) may not overtake — even on multi-lane roads without crossing into oncoming traffic.</div>
+          <span class="sig-trap">⚠ R-306 vs R-305: trucks banned from overtaking even without crossing lanes; R-305 only applies when crossing lanes is needed.</span>
+        </div>
+      </div>
+      <div class="sig-row" style="border:none">
+        <span class="sig-code">R-304</span>
+        <div class="sig-body">
+          <div class="sig-name">Cambio de sentido prohibido</div>
+          <div class="sig-desc">Prohibición de efectuar la maniobra de cambio de sentido.</div>
+          <div class="sig-en">No U-turn.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Obligation signs R -->
+    <div style="font-size:.78rem;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.45rem">Señales de obligación — novedades · Obligation signs — new &amp; notable</div>
+    <div class="card" style="padding:.75rem 1rem;margin-bottom:.75rem">
+      <div class="sig-row">
+        <span class="sig-code">R-407a</span>
+        <div class="sig-body">
+          <div class="sig-name">Vía reservada y obligatoria para ciclos</div>
+          <div class="sig-desc">Obliga a los ciclistas a circular por esa vía y <strong>prohíbe a los demás usuarios</strong> utilizarla.</div>
+          <div class="sig-en">Cyclists must use this road; all others prohibited.</div>
+        </div>
+      </div>
+      <div class="sig-row">
+        <span class="sig-code">R-412</span>
+        <div class="sig-body">
+          <div class="sig-name">Cadenas para nieve</div>
+          <div class="sig-desc">Obligación de llevar cadenas u otros dispositivos antideslizantes autorizados que actúen <strong>al menos en una rueda a cada lado del mismo eje motor</strong>, o neumáticos especiales de nieve.</div>
+          <div class="sig-en">Snow chains required — must act on at least one wheel each side of the drive axle, or winter tyres.</div>
+        </div>
+      </div>
+      <div class="sig-row">
+        <span class="sig-code">R-412b</span>
+        <div class="sig-body">
+          <div class="sig-name">Neumáticos de invierno (nueva señal)</div>
+          <div class="sig-desc"><strong>Nueva.</strong> Obligación de no proseguir la marcha sin <strong>neumáticos especiales de invierno</strong>.</div>
+          <div class="sig-en">New sign. Winter tyres required (distinct from snow chains).</div>
+          <span class="sig-trap">⚠ R-412 = chains. R-412b = winter tyres. Different signs, different requirements.</span>
+        </div>
+      </div>
+      <div class="sig-row">
+        <span class="sig-code">R-420</span>
+        <div class="sig-body">
+          <div class="sig-name">Vía reservada y obligatoria para VMP</div>
+          <div class="sig-desc"><strong>Nueva.</strong> Obligación para conductores de vehículos de movilidad personal de circular por esa vía; prohibición al resto.</div>
+          <div class="sig-en">New. Personal mobility vehicles must use this route; others prohibited.</div>
+        </div>
+      </div>
+      <div class="sig-row">
+        <span class="sig-code">R-421</span>
+        <div class="sig-body">
+          <div class="sig-name">Vía reservada y obligatoria para ciclos y VMP</div>
+          <div class="sig-desc"><strong>Nueva.</strong> Ciclos y vehículos de movilidad personal deben circular por aquí; prohibición al resto.</div>
+          <div class="sig-en">New. Cycles AND personal mobility vehicles must use this route; others prohibited.</div>
+        </div>
+      </div>
+      <div class="sig-row" style="border:none">
+        <span class="sig-code">R-422</span>
+        <div class="sig-body">
+          <div class="sig-name">Desmontar y continuar a pie</div>
+          <div class="sig-desc"><strong>Nueva.</strong> Obligación para los usuarios de ciclos de continuar a pie.</div>
+          <div class="sig-en">New. Cyclists must dismount and proceed on foot.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Information signs S - key ones -->
+    <div style="font-size:.78rem;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.45rem">Señales de indicación — zonas especiales y novedades · Special zone signs — new &amp; key</div>
+    <table class="tbl" style="margin-bottom:.75rem">
+      <thead><tr><th>Código</th><th>Zona / Zone</th><th>Reglas clave / Key rules</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="badge b-bl">S-28</span></td>
+          <td><strong>Zona de estancia de juego</strong> · Play zone</td>
+          <td>Velocidad máxima: <span class="hl">10 km/h</span>. Peatones con prioridad; ciclos en ambos sentidos; juegos/deportes autorizados. Siempre acompaña señal R-301 a 10 km/h.<span class="tbl-note">New. Max 10 km/h. Pedestrian priority. Cycling both ways. Games allowed.</span></td>
+        </tr>
+        <tr>
+          <td><span class="badge b-bl">S-47</span></td>
+          <td><strong>Zona de coexistencia</strong> · Coexistence zone</td>
+          <td>Velocidad máxima: <span class="hl">20 km/h</span>. Peatones con prioridad; ciclos en ambos sentidos; <strong>juegos/deportes NO autorizados</strong>.<span class="tbl-note">New. Max 20 km/h. Pedestrian priority. Games NOT allowed — key difference from S-28.</span></td>
+        </tr>
+        <tr>
+          <td><span class="badge b-bl">S-30a</span></td>
+          <td><strong>Zona peatonal</strong> · Pedestrian zone</td>
+          <td>Zona reservada para uso peatonal con excepciones que determine la administración.</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-bl">S-49</span></td>
+          <td><strong>Avanza moto/bici</strong> · Advance motorcycle/bike box</td>
+          <td>Zona de espera en semáforo reservada a motocicletas, ciclomotores o ciclos. Solo ellos pueden ocuparla con semáforo rojo.<span class="tbl-note">New. Pre-stop-line waiting area for bikes/cycles at red lights.</span></td>
+        </tr>
+        <tr>
+          <td><span class="badge b-bl">S-1c</span></td>
+          <td><strong>Carretera 2+1</strong> · 2+1 road</td>
+          <td>Tres carriles, doble sentido. El <strong>carril central</strong> se destina al adelantamiento, reservado <strong>de forma alterna</strong> a cada sentido.<span class="tbl-note">New. The central lane is for overtaking, alternating between directions.</span></td>
+        </tr>
+        <tr>
+          <td><span class="badge b-bl">S-51b</span></td>
+          <td><strong>Carril VAO</strong> · High-occupancy vehicle lane</td>
+          <td>La imagen de la señal indica el <strong>número mínimo de personas</strong> para que el vehículo se considere de alta ocupación.</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-bl">S-891</span></td>
+          <td><strong>Distancia lateral adelantamiento a ciclista</strong></td>
+          <td>Indica la <strong>distancia lateral mínima</strong> que el vehículo debe dejar al adelantar al ciclista o grupo de ciclistas. En grupo, la distancia se mide al ciclista más escorado a la izquierda.</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-bl">S-892</span></td>
+          <td><strong>Vigilancia por medios automáticos</strong></td>
+          <td>Indica vigilancia mediante medios de captación y denuncia automáticos del cumplimiento de la señal a la que acompaña.</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-bl">S-991g</span></td>
+          <td><strong>Control de velocidad por medios aéreos</strong></td>
+          <td>Posible existencia de controles de velocidad mediante <strong>helicóptero o dron</strong>.<span class="tbl-note">New. Drone/helicopter speed enforcement.</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="trap">
+      <div class="trap-lbl">⚠ Exam trap — S-28 vs S-47</div>
+      <p><strong>S-28 Zona de estancia de juego:</strong> max <span class="hl">10 km/h</span>, juegos y deportes <strong>autorizados</strong>.<br>
+      <strong>S-47 Zona de coexistencia:</strong> max <span class="hl">20 km/h</span>, juegos y deportes <strong>NO autorizados</strong>.<br>
+      Both have pedestrian priority and allow cycling both ways. The speed and games rule are the distinguishing details.</p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       6. CONSTRUCTION ZONES
+  ═══════════════════════════════════ -->
+  <div class="section">
+    <div class="sec-title">6. Señalización de obras <span class="sec-en">· Construction zone signalling</span></div>
+
+    <div class="works-box">
+      <strong>Regla de oro de las obras · Golden rule:</strong> When roadworks alter traffic in any way, the works must be signposted both day and night. At night (or in poor visibility): luminous beaconing is mandatory.
+    </div>
+
+    <div class="g2" style="margin-bottom:.65rem">
+      <div class="co co-am">
+        <strong>Fondo amarillo en señales de obras</strong><br>
+        Cuando se señaliza un tramo de obras, el fondo de las señales verticales es de color <span class="hl">amarillo</span>. Las marcas viales también serán amarillas como norma general.<br>
+        <span class="en">Construction zone: vertical signs on yellow background. Road markings also yellow as a rule.</span>
+      </div>
+      <div class="co co-gy">
+        <strong>Marcas blancas previas</strong><br>
+        Si las marcas viales blancas preexistentes siguen siendo de aplicación, pueden mantenerse de color blanco junto a las amarillas.
+        <span class="en">Existing white markings may remain if they're still valid.</span>
+      </div>
+    </div>
+
+    <div class="co co-bl" style="font-size:.83rem">
+      Los usuarios están obligados a <strong>obedecer las indicaciones del personal de obras</strong>, quienes regulan el paso mediante señales verticales incorporadas a una paleta. · Road workers' signals are mandatory — they regulate passing with paddle signs.
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       7. BEACONING / BALIZAMIENTO
+  ═══════════════════════════════════ -->
+  <div class="section">
+    <div class="sec-title">7. Dispositivos de balizamiento y guía <span class="sec-en">· Beaconing and guidance devices</span></div>
+
+    <p style="font-size:.85rem;color:var(--tx2);margin-bottom:.8rem;line-height:1.65">Beaconing devices rank 2nd in the priority order (together with circumstantial signalling). Know the exact prohibition or permission each device carries.</p>
+
+    <!-- Delimiting devices -->
+    <div style="font-size:.78rem;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.45rem">Dispositivos delimitadores · Delimiting devices (prohibit passage)</div>
+    <div class="beacon-grid" style="margin-bottom:.85rem">
+      <div class="beacon-card">
+        <div class="beacon-name">Dispositivo delimitador fijo</div>
+        <div class="beacon-en">Fixed delimiting device</div>
+        <div class="beacon-desc">Prohíbe el paso a la vía o <strong>parte</strong> de esta que delimita. Permanente. · Permanently prohibits access to the road or section it marks.</div>
+      </div>
+      <div class="beacon-card">
+        <div class="beacon-name">Dispositivo delimitador móvil</div>
+        <div class="beacon-en">Mobile/movable delimiting device</div>
+        <div class="beacon-desc">Prohíbe el paso <strong>temporalmente</strong>, mientras esté en posición transversal a la calzada (paso a nivel, peaje, aduana, acceso a establecimientos). · Temporarily prohibits when placed across road.</div>
+      </div>
+      <div class="beacon-card">
+        <div class="beacon-name">Panel direccional provisional</div>
+        <div class="beacon-en">Provisional directional panel</div>
+        <div class="beacon-desc">Además de prohibir el paso, <strong>informa sobre el sentido</strong> de la circulación. Red-and-white chevrons. · Also directs traffic — prohibits + directs.</div>
+      </div>
+      <div class="beacon-card">
+        <div class="beacon-name">Balizas de borde / Conos</div>
+        <div class="beacon-en">Edge beacons / Cones</div>
+        <div class="beacon-desc">Prohíben el paso a través de la línea <strong>real o imaginaria</strong> que los une. · Prohibit crossing the real or imaginary line connecting them.</div>
+      </div>
+      <div class="beacon-card" style="border-color:var(--re)">
+        <div class="beacon-name" style="color:var(--re)">Luz roja fija</div>
+        <div class="beacon-en">Fixed red light (on beacon)</div>
+        <div class="beacon-desc">Indica que la calzada está <strong>totalmente cerrada</strong> al tráfico. · Road completely closed.</div>
+      </div>
+      <div class="beacon-card" style="border-color:var(--am)">
+        <div class="beacon-name" style="color:var(--am)">Luces amarillas fijas o intermitentes</div>
+        <div class="beacon-en">Fixed or flashing amber lights (on beacons)</div>
+        <div class="beacon-desc">Prohíben el paso a través de la línea (real o imaginaria) que las une. · Prohibit crossing the line connecting them.</div>
+      </div>
+    </div>
+
+    <!-- Guidance devices -->
+    <div style="font-size:.78rem;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.45rem">Dispositivos de guía · Guidance devices</div>
+    <div class="beacon-grid" style="margin-bottom:.85rem">
+      <div class="beacon-card">
+        <div class="beacon-name">Hito de vértice</div>
+        <div class="beacon-en">Vertex marker</div>
+        <div class="beacon-desc">Indica el punto donde se <strong>separan dos corrientes</strong> de tráfico (traffic split point).</div>
+      </div>
+      <div class="beacon-card">
+        <div class="beacon-name">Hito de arista</div>
+        <div class="beacon-en">Edge marker post</div>
+        <div class="beacon-desc">Baliza los <strong>bordes de las carreteras</strong>, principalmente de noche o con baja visibilidad.</div>
+      </div>
+      <div class="beacon-card">
+        <div class="beacon-name">Paneles direccionales permanentes</div>
+        <div class="beacon-en">Permanent directional panels</div>
+        <div class="beacon-desc">Marcan el trazado de una <strong>curva</strong>, indicando la reducción de velocidad necesaria y el sentido de circulación.</div>
+      </div>
+      <div class="beacon-card">
+        <div class="beacon-name">Captafaro horizontal retrorreflectante</div>
+        <div class="beacon-en">Retroreflective horizontal road stud</div>
+        <div class="beacon-desc">Fijado en el pavimento para facilitar el guiado óptico, fundamentalmente <strong>de noche o con escasa luminosidad</strong>.</div>
+      </div>
+      <div class="beacon-card">
+        <div class="beacon-name">Captafaro vertical</div>
+        <div class="beacon-en">Vertical retroreflector</div>
+        <div class="beacon-desc">Fijado en sistemas de contención. Guiado óptico del trazado, fundamentalmente <strong>de noche</strong>.</div>
+      </div>
+      <div class="beacon-card">
+        <div class="beacon-name">Paneles verticales</div>
+        <div class="beacon-en">Vertical panels</div>
+        <div class="beacon-desc">Indican la presencia de un <strong>estrechamiento</strong> en la plataforma o cualquier obstáculo próximo (obras de fábrica, pretiles, entradas a túnel, etc.).</div>
+      </div>
+      <div class="beacon-card">
+        <div class="beacon-name">Balizas cilíndricas</div>
+        <div class="beacon-en">Cylindrical beacons</div>
+        <div class="beacon-desc">Guía o referencia en <strong>zonas singulares</strong>: delimitación de carriles, convergencias, divergencias e intersecciones.</div>
+      </div>
+      <div class="beacon-card">
+        <div class="beacon-name">Jalones de nieve</div>
+        <div class="beacon-en">Snow poles</div>
+        <div class="beacon-desc">Delimitan la plataforma de la carretera cuando <strong>no es visible por cubrirse de nieve</strong>.</div>
+      </div>
+      <div class="beacon-card">
+        <div class="beacon-name">Guías sonoras longitudinales</div>
+        <div class="beacon-en">Longitudinal acoustic guides / rumble strips</div>
+        <div class="beacon-desc">Hendiduras o resaltes en el firme que <strong>producen vibración/sonido</strong> al pisarlos, alertando al conductor de desvíos involuntarios.</div>
+      </div>
+      <div class="beacon-card">
+        <div class="beacon-name">Manga de viento</div>
+        <div class="beacon-en">Windsock</div>
+        <div class="beacon-desc">Complementa la señal P-29 informando sobre la <strong>existencia, sentido e intensidad</strong> del viento transversal.</div>
+      </div>
+      <div class="beacon-card">
+        <div class="beacon-name">Pórtico de control de gálibo</div>
+        <div class="beacon-en">Height gauge gantry</div>
+        <div class="beacon-desc">Advierte o impide el paso de vehículos que <strong>sobrepasan la altura</strong> de la estructura siguiente (puente, túnel, etc.).</div>
+      </div>
+      <div class="beacon-card" style="border-color:var(--am)">
+        <div class="beacon-name" style="color:var(--am)">Balizamiento circunstancial luminoso</div>
+        <div class="beacon-en">Circumstantial luminous beaconing</div>
+        <div class="beacon-desc">En tramos de <strong>niebla intensa</strong>. Dos colores: <strong>ámbar fijo</strong> = sentido y delimitación de vía; <strong>rojo fijo</strong> = paso de vehículo.</div>
+      </div>
+    </div>
+
+    <!-- Vehicle containment -->
+    <div style="font-size:.78rem;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.45rem">Sistemas de contención de vehículos · Vehicle containment systems</div>
+    <div class="beacon-grid">
+      <div class="beacon-card">
+        <div class="beacon-name">Barrera de seguridad</div>
+        <div class="beacon-en">Safety barrier</div>
+        <div class="beacon-desc">Protege frente a salidas de la vía en los <strong>márgenes y medianas</strong> de la carretera.</div>
+      </div>
+      <div class="beacon-card">
+        <div class="beacon-name">Pretiles</div>
+        <div class="beacon-en">Parapets</div>
+        <div class="beacon-desc">Protegen frente a salidas de la vía en <strong>tableros de puentes y obras de paso</strong>, coronaciones de muros de sostenimiento.</div>
+      </div>
+      <div class="beacon-card">
+        <div class="beacon-name">Sistemas de protección para motoristas</div>
+        <div class="beacon-en">Motorcycle protection systems</div>
+        <div class="beacon-desc">Barreras específicamente diseñadas para la protección de <strong>vehículos de dos ruedas</strong>.</div>
+      </div>
+      <div class="beacon-card">
+        <div class="beacon-name">Atenuadores de impacto</div>
+        <div class="beacon-en">Impact attenuators / crash cushions</div>
+        <div class="beacon-desc">Empleados en el <strong>inicio de divergencias o bifurcaciones</strong>. Absorben el impacto de vehículos que colisionan contra ellos.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       8. ROAD MARKINGS (2025)
+  ═══════════════════════════════════ -->
+  <div class="section">
+    <div class="sec-title">8. Marcas viales — novedades 2025 <span class="sec-en">· Road markings — 2025 updates</span></div>
+
+    <p style="font-size:.85rem;color:var(--tx2);margin-bottom:.8rem;line-height:1.65">Marcas viales rank <strong>5th</strong> (lowest) in the priority order — they are overridden by everything else. But they still carry legal force. The 2025 supplement adds new pictogram markings for e-mobility and new zone markings.</p>
+
+    <div class="g2" style="margin-bottom:.75rem">
+      <div class="card" style="font-size:.82rem;line-height:1.65">
+        <div style="font-weight:600;margin-bottom:.25rem">Paso para peatones sobreelevado</div>
+        <div style="font-size:.74rem;color:var(--tx3);font-style:italic;margin-bottom:.3rem">Raised pedestrian crossing</div>
+        Los vehículos deben dar paso a los peatones que tienen <strong>preferencia de paso</strong>.
+      </div>
+      <div class="card" style="font-size:.82rem;line-height:1.65">
+        <div style="font-weight:600;margin-bottom:.25rem">Marca de reductor de velocidad "lomo de asno"</div>
+        <div style="font-size:.74rem;color:var(--tx3);font-style:italic;margin-bottom:.3rem">Speed bump marking</div>
+        Indica la presencia de un reductor de velocidad — los vehículos deben reducir la velocidad.
+      </div>
+    </div>
+
+    <div class="g2" style="margin-bottom:.75rem">
+      <div class="card" style="font-size:.82rem;line-height:1.65">
+        <div style="font-weight:600;margin-bottom:.25rem">Dientes de dragón · Dragon's teeth</div>
+        <div style="font-size:.74rem;color:var(--tx3);font-style:italic;margin-bottom:.3rem">Triangular road surface markings</div>
+        Advierten de la proximidad de una <strong>travesía o vía urbana</strong> donde se debe reducir la velocidad, especialmente por la presencia de personas vulnerables.
+      </div>
+      <div class="card" style="font-size:.82rem;line-height:1.65">
+        <div style="font-weight:600;margin-bottom:.25rem">Damero para la reducción de velocidad · Chequered marking</div>
+        <div style="font-size:.74rem;color:var(--tx3);font-style:italic;margin-bottom:.3rem">Chevron/chequered pattern</div>
+        Advierte de necesidad de reducir velocidad y extremar atención en proximidad de tramos de <strong>riesgo superior al percibido</strong> subjetivamente (glorietas, peajes, usuarios vulnerables).
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:.75rem;font-size:.82rem;line-height:1.65">
+      <div style="font-weight:600;margin-bottom:.4rem">Avanza bici / avanza-motos · Advance bike/moto marking</div>
+      <div style="font-size:.74rem;color:var(--tx3);font-style:italic;margin-bottom:.35rem">Pre-stop line reservation zone</div>
+      En la sección inmediatamente anterior a una intersección o paso de peatones regulado por semáforos: cuando el semáforo está <strong>rojo</strong>, sólo pueden ocupar este espacio <strong>ciclos, VMP, motocicletas o ciclomotores</strong>. Delimitado por dos marcas transversales continuas. Complementa la señal S-49.
+      <em style="font-size:.74rem;display:block;margin-top:3px;color:var(--tx3)">Only bikes, e-scooters, motos and mopeds may enter this pre-stop zone at red.</em>
+    </div>
+
+    <!-- New pictograms 2025 -->
+    <div style="font-size:.78rem;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.45rem">Nuevos pictogramas en calzada — 2025 · New road surface pictograms</div>
+    <div class="g3">
+      <div class="card" style="font-size:.8rem;line-height:1.6;padding:.75rem .9rem">
+        <div style="font-weight:600;margin-bottom:2px">VMP (E-scooter)</div>
+        Indica carriles o zonas reservadas o con prioridad para <strong>vehículos de movilidad personal</strong>.
+      </div>
+      <div class="card" style="font-size:.8rem;line-height:1.6;padding:.75rem .9rem">
+        <div style="font-weight:600;margin-bottom:2px">Ciclo / Bicicleta</div>
+        Indica carriles o zonas reservadas con prioridad para <strong>ciclos</strong>.
+      </div>
+      <div class="card" style="font-size:.8rem;line-height:1.6;padding:.75rem .9rem">
+        <div style="font-weight:600;margin-bottom:2px">Moto/Ciclomotor eléctrico</div>
+        Indica carriles o zonas reservadas para <strong>motocicletas y ciclomotores eléctricos</strong>.
+      </div>
+      <div class="card" style="font-size:.8rem;line-height:1.6;padding:.75rem .9rem">
+        <div style="font-weight:600;margin-bottom:2px">Vehículo eléctrico</div>
+        Indica carriles o zonas reservadas o con prioridad para <strong>vehículos eléctricos</strong>.
+      </div>
+      <div class="card" style="font-size:.8rem;line-height:1.6;padding:.75rem .9rem">
+        <div style="font-weight:600;margin-bottom:2px">Bicicleta de carga</div>
+        Indica zonas reservadas o con prioridad para <strong>bicicletas de carga</strong> (cargo bikes).
+      </div>
+      <div class="card" style="font-size:.8rem;line-height:1.6;padding:.75rem .9rem">
+        <div style="font-weight:600;margin-bottom:2px">Carril VAO</div>
+        Indica un carril reservado para <strong>vehículos de alta ocupación</strong>.
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:.65rem;font-size:.82rem;line-height:1.65">
+      <div style="font-weight:600;margin-bottom:.3rem">Marca de separación de seguridad entre vehículos · Safe following distance marking</div>
+      Sirve como referencia para mantener la separación mínima entre vehículos en <strong>túneles, secciones especiales y tramos de mayor riesgo</strong> de alcance.
+      <em style="font-size:.74rem;display:block;margin-top:3px;color:var(--tx3)">Galón-shaped markings help drivers maintain safe following distance in tunnels and high-risk sections.</em>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       9. KEY RULES SUMMARY
+  ═══════════════════════════════════ -->
+  <div class="section">
+    <div class="sec-title">9. Reglas generales clave <span class="sec-en">· Key general rules</span></div>
+
+    <div class="g2" style="margin-bottom:.65rem">
+      <div class="co co-re">
+        <strong>Instalación no autorizada de señales</strong><br>
+        Salvo causa justificada, nadie puede instalar, retirar, trasladar, ocultar o modificar señalización sin permiso del titular de la vía.
+        <span class="en">No one may install, remove, move, obscure or modify road signs without the road authority's permission.</span>
+      </div>
+      <div class="co co-bl">
+        <strong>Señales con aplicación a carriles</strong><br>
+        La aplicación de las señales puede limitarse a uno o más carriles mediante marcas en la calzada. (Image 3 example: blue car must follow the vertical sign ahead of it, but not necessarily other lanes.)
+        <span class="en">Signals can be limited to specific lanes by road markings.</span>
+      </div>
+    </div>
+
+    <div class="co co-am">
+      <strong>Señales opuestas del mismo lado</strong><br>
+      Si hay semáforos o señales verticales a la <strong>izquierda y a la derecha</strong> de la calzada con indicaciones distintas: los conductores que van a la derecha obedecen las señales de la derecha; los que van de frente o a la izquierda, las de la izquierda.
+      <span class="en">Different signals each side of the road: right-turning drivers follow right-side signals; straight/left drivers follow left-side signals.</span>
+    </div>
+
+    <div class="trap" style="margin-top:.6rem">
+      <div class="trap-lbl">⚠ Most tested scenarios in this topic</div>
+      <p>
+        1. <strong>Agente vs semáforo en verde</strong> → Agente wins (always). Stop.<br>
+        2. <strong>Semáforo vs señal vertical STOP</strong> → Semáforo wins. If green, pass without stopping.<br>
+        3. <strong>Señal vertical CEDA vs marca vial STOP</strong> → Señal vertical wins. Yield, don't stop.<br>
+        4. <strong>Aspa roja de carril</strong> → Exit carril immediately, even passing under the aspa.<br>
+        5. <strong>Amarillo fijo</strong> → Stop as if red, unless dangerously close.<br>
+        6. <strong>S-28 vs S-47</strong> → S-28 = 10 km/h + games OK; S-47 = 20 km/h + games NOT allowed.
+      </p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       10. VOCABULARY
+  ═══════════════════════════════════ -->
+  <div class="section">
+    <div class="sec-title">10. Vocabulario esencial <span class="sec-en">· Essential vocabulary</span></div>
+    <div class="vocab-grid">
+      <div class="vocab-item"><div class="vocab-es">señalización circunstancial</div><div class="vocab-en">temporary/circumstantial signalling</div></div>
+      <div class="vocab-item"><div class="vocab-es">balizamiento</div><div class="vocab-en">beaconing / beacon system</div></div>
+      <div class="vocab-item"><div class="vocab-es">marca vial</div><div class="vocab-en">road marking (painted on road)</div></div>
+      <div class="vocab-item"><div class="vocab-es">señal vertical</div><div class="vocab-en">vertical (roadside) sign</div></div>
+      <div class="vocab-item"><div class="vocab-es">semáforo</div><div class="vocab-en">traffic light</div></div>
+      <div class="vocab-item"><div class="vocab-es">agente de circulación</div><div class="vocab-en">traffic officer</div></div>
+      <div class="vocab-item"><div class="vocab-es">ceda el paso</div><div class="vocab-en">give way (yield)</div></div>
+      <div class="vocab-item"><div class="vocab-es">detención obligatoria</div><div class="vocab-en">mandatory stop</div></div>
+      <div class="vocab-item"><div class="vocab-en">baliza / captafaro</div><div class="vocab-en">beacon / road stud (reflector)</div></div>
+      <div class="vocab-item"><div class="vocab-es">jalón de nieve</div><div class="vocab-en">snow pole / snow marker</div></div>
+      <div class="vocab-item"><div class="vocab-es">hito de vértice</div><div class="vocab-en">traffic island/split marker</div></div>
+      <div class="vocab-item"><div class="vocab-es">hito de arista</div><div class="vocab-en">edge marker post</div></div>
+      <div class="vocab-item"><div class="vocab-es">panel direccional provisional</div><div class="vocab-en">provisional directional chevron panel</div></div>
+      <div class="vocab-item"><div class="vocab-es">atenuador de impacto</div><div class="vocab-en">crash cushion / impact attenuator</div></div>
+      <div class="vocab-item"><div class="vocab-es">gálibo</div><div class="vocab-en">clearance height (of bridge/tunnel)</div></div>
+      <div class="vocab-item"><div class="vocab-es">paso a nivel</div><div class="vocab-en">level crossing (railway)</div></div>
+      <div class="vocab-item"><div class="vocab-es">dientes de dragón</div><div class="vocab-en">dragon's teeth (road markings)</div></div>
+      <div class="vocab-item"><div class="vocab-es">lomo de asno</div><div class="vocab-en">speed hump / road hump</div></div>
+      <div class="vocab-item"><div class="vocab-es">damero</div><div class="vocab-en">chequered (speed-reduction) marking</div></div>
+      <div class="vocab-item"><div class="vocab-es">carril VAO</div><div class="vocab-en">HOV lane (high-occupancy vehicle)</div></div>
+      <div class="vocab-item"><div class="vocab-es">pretil</div><div class="vocab-en">parapet (on bridge)</div></div>
+      <div class="vocab-item"><div class="vocab-es">paleta</div><div class="vocab-en">paddle sign (used by officers/workers)</div></div>
+    </div>
+  </div>
+
+  <div style="font-size:.75rem;color:var(--tx3);text-align:center;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--bd)">
+    Tema 2 · matferline.com + Suplemento 2025 Novedades Señalización Vial · DGT study notes
+  </div>
+
+
+</div>
+
+</div><!-- /page -->
+
+<script>
+  document.querySelectorAll('.tpill[href]').forEach(p => {
+    p.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelectorAll('.tpill').forEach(x => x.classList.remove('active'));
+      p.classList.add('active');
+      document.querySelector(p.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
+    });
+  });
+</script>
+</body>
+</html>
